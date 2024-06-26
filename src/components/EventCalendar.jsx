@@ -1,5 +1,6 @@
 import { eachDayOfInterval, endOfMonth, startOfMonth, getDay, format, isAfter, addMonths, eachMonthOfInterval } from "date-fns";
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -9,6 +10,8 @@ export default function EventCalendar({ events }) {
     const lastDayOfMonth = endOfMonth(date);
     const startingDayIndex = getDay(firstDayOfMonth);
     const currentDate = new Date();
+    const navigate = useNavigate();
+
   // Create an array of each day in the month with slots A and B properties
     const daysInMonth = eachDayOfInterval({
         start: firstDayOfMonth,
@@ -23,8 +26,9 @@ export default function EventCalendar({ events }) {
     };
     });
 
-    function handleClick(dayObj, slot) {
-        console.log(`Click on ${slot} slot of date ${format(dayObj.date, 'yyyy-MM-dd')}`);
+    function handleClick(date, slot) {
+        console.log(`Click on ${slot} slot of date ${format(date, 'yyyy-MM-dd')}`);
+        navigate('/create', { state: { date, slot } })
     }
 
     const handleChange = (e) => {
@@ -60,7 +64,7 @@ export default function EventCalendar({ events }) {
                     <div className="border-t text-sm p-2 bg-gray-100">{dayObj.slotA.guest}</div>
                 ) : (
                     isAfter(dayObj.date, currentDate) ? (
-                    <div onClick={() => handleClick(dayObj, 'A')} className="bg-green-200 border-t text-sm p-2">2-6pm</div>
+                    <div onClick={() => handleClick(dayObj.date, 'A')} className="bg-green-200 border-t text-sm p-2">2-6pm</div>
                     ) : (
                     <div className="bg-red-100 border-t p-2 min-h-8"></div>
                     )
@@ -71,7 +75,7 @@ export default function EventCalendar({ events }) {
                     <div className="border-t text-sm p-2 bg-gray-100">{dayObj.slotB.guest}</div>
                 ) : (
                     isAfter(dayObj.date, currentDate) ? (
-                    <div onClick={() => handleClick(dayObj, 'B')} className="bg-green-200 border-t text-sm p-2">7-11pm</div>
+                    <div onClick={() => handleClick(dayObj.date, 'B')} className="bg-green-200 border-t text-sm p-2">7-11pm</div>
                     ) : (
                     <div className="bg-red-100 border-t p-2 min-h-8"></div>
                     )
