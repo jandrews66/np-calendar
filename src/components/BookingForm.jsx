@@ -4,7 +4,7 @@ import { format } from "date-fns";
 
 export default function BookingForm(){
     const location = useLocation();
-    const { date, slot } = location.state || {};
+    const { date, slot, status } = location.state || {};
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [telephone, setTelephone] = useState('')
@@ -16,7 +16,7 @@ export default function BookingForm(){
         e.preventDefault();
         const formData = { 
             date: format(new Date(date), 'yyyy-MM-dd'), 
-            slot, firstName, lastName, telephone, email, attendance }
+            slot, firstName, lastName, telephone, email, attendance, status }
         
         const response = await fetch('http://localhost:3000/booking/create', {
             method: 'POST',
@@ -28,10 +28,10 @@ export default function BookingForm(){
 
         const data = await response.json();
         if (response.ok) {
-            console.log('post created', data);
+            console.log('booking created', data);
             navigate('/')
           } else {
-            console.log('post failed', data);
+            console.log('booking failed', data);
           }
     }
 

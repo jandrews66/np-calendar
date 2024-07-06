@@ -4,16 +4,27 @@ import App from './App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import BookingForm from './components/BookingForm.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import Dashboard from './pages/Dashboard.jsx'
+import UserCalendar from './pages/UserCalendar.jsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <UserCalendar />,
   },
   {
     path: "/create",
     element: <BookingForm />,
   },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/admin/dashboard",
+    element: <Dashboard />
+  }
 ]);
 
 

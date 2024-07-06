@@ -1,7 +1,7 @@
 import { eachDayOfInterval, endOfMonth, startOfMonth, getDay, format, isAfter, addMonths, eachMonthOfInterval } from "date-fns";
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import FetchBookings from './fetchBookings'
+import FetchBookings from './FetchBookings'
 
 const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -16,6 +16,25 @@ export default function EventCalendar() {
     const navigate = useNavigate();
 
     console.log(bookings)
+
+    // Fetch bookings when the component mounts or date changes
+    useEffect(() => {
+        setLoading(true);
+        fetch("http://localhost:3000/bookings", {
+            mode: 'cors',
+            dataType: 'json',
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            setBookings(data);
+            setLoading(false);
+        })
+        .catch((error) => {
+            console.error("Error fetching bookings:", error);
+            setLoading(false);
+        });
+    }, [date]);
+    
   // Create an array of each day in the month with slots A and B properties
     const daysInMonth = eachDayOfInterval({
         start: firstDayOfMonth,
@@ -47,7 +66,6 @@ export default function EventCalendar() {
 
     return (
         <div className="container mx-auto p-8 min-w-[350px] max-w-[860px]">
-            <FetchBookings setBookings={setBookings} setLoading={setLoading} />
             {loading ? (
                 <div className="text-center">Loading...</div>
             ) : (

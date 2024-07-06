@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {addDays, subDays} from "date-fns"
-import EventCalendar from "./components/EventCalendar"
+import UserCalendar from "./pages/UserCalendar"
 import './index.css'
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <div>
-        <EventCalendar/>
+        <UserCalendar/>
       </div>
     </>
   )
