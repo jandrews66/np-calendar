@@ -1,4 +1,4 @@
-import { eachDayOfInterval, endOfMonth, startOfMonth, getDay, format, isAfter, addMonths, eachMonthOfInterval } from "date-fns";
+import { eachDayOfInterval, endOfMonth, startOfMonth, getDay, format, isAfter, addMonths, eachMonthOfInterval, startOfDay } from "date-fns";
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
@@ -9,14 +9,22 @@ export default function Calendar({ bookings, loading, handleClick, handleEdit, s
     const firstDayOfMonth = startOfMonth(date);
     const lastDayOfMonth = endOfMonth(date);
     const startingDayIndex = getDay(firstDayOfMonth);
-    const currentDate = new Date();
+    const currentDate = (new Date());
 
     const daysInMonth = eachDayOfInterval({
         start: firstDayOfMonth,
         end: lastDayOfMonth,
     }).map(day => {
-        const slotAEvent = bookings.find(event => format(new Date(event.date), 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd') && event.slot === 'A');
-        const slotBEvent = bookings.find(event => format(new Date(event.date), 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd') && event.slot === 'B');
+    
+        const utcDay = new Date(Date.UTC(day.getFullYear(), day.getMonth(), day.getDate())); //format date to UTC to match mongodb timezone
+        const formattedDay = utcDay.toISOString(); // Get the ISO string in the format "YYYY-MM-DDT00:00:00.000Z" to compare against mongodb dates  
+
+        const slotAEvent = bookings.find(
+            event => event.date === formattedDay && event.slot === 'A'
+        );
+        const slotBEvent = bookings.find(
+            event => event.date === formattedDay && event.slot === 'B'
+        );      
         return {
             date: day,
             slotA: slotAEvent ? slotAEvent : null,
@@ -25,7 +33,7 @@ export default function Calendar({ bookings, loading, handleClick, handleEdit, s
     });
 
     const handleChange = (e) => {
-        setDate(new Date(e.target.value));
+        setDate(startOfDay(new Date(e.target.value)));
     };
 
     const next6Months = eachMonthOfInterval({

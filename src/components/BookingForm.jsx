@@ -14,9 +14,21 @@ export default function BookingForm(){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Format date to 'yyyy-MM-dd' for consistency
+        const formattedDate = format(new Date(date), 'yyyy-MM-dd');
+
         const formData = { 
-            date: format(new Date(date), 'yyyy-MM-dd'), 
-            slot, firstName, lastName, telephone, email, attendance, status }
+            date: formattedDate, 
+            slot, 
+            firstName, 
+            lastName, 
+            telephone, 
+            email, 
+            attendance, 
+            status 
+        };
+        console.log("form data" + formData.date)
         
         const response = await fetch('http://localhost:3000/booking/create', {
             method: 'POST',
