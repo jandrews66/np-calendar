@@ -66,7 +66,7 @@ export default function Calendar({ bookings, loading, handleClick, handleEdit, s
                                     <div className="bg-slate-100 p-1">{format(dayObj.date, "d")}</div>
                                     <div>
                                         {dayObj.slotA ? (
-                                            <div className="border-t text-sm p-2 bg-red-100">
+                                            <div className={`border-t text-sm p-2 ${dayObj.slotA.booking_status === "provisional" ?  'bg-yellow-200' : 'bg-red-100' }`}>
                                                 {showNames ? <button onClick={() => handleEdit(dayObj.slotA)}>{dayObj.slotA.last_name}</button> : <p>Unavailable</p>}
                                             </div>    
                                         ) : (
@@ -79,9 +79,9 @@ export default function Calendar({ bookings, loading, handleClick, handleEdit, s
                                     </div>
                                     <div>
                                         {dayObj.slotB ? (
-                                            <div className="border-t text-sm p-2 bg-red-100">
+                                            <div className={`border-t text-sm p-2 ${dayObj.slotB.booking_status === "provisional" ?  'bg-yellow-200' : 'bg-red-100' }`}>
                                                 {showNames ? <button onClick={() => handleEdit(dayObj.slotB)}>{dayObj.slotB.last_name}</button> : <p>Unavailable</p>}
-                                                </div>
+                                            </div>
                                         ) : (
                                             isAfter(dayObj.date, currentDate) ? (
                                                 <button onClick={() => handleClick(dayObj.date, 'B')} className="bg-green-200 w-full h-full border-t text-sm p-2 hover:bg-green-400">7-11pm</button>

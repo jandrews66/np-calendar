@@ -17,7 +17,7 @@ export default function Dashboard() {
 
     function handleEdit(booking){
         console.log(booking)
-        navigate(`/edit/${booking._id}`);
+        navigate(`/admin/bookings/${booking._id}`);
 
     }
 

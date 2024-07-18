@@ -7,6 +7,7 @@ import BookingForm from './components/BookingForm.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import UserCalendar from './pages/UserCalendar.jsx'
+import BookingPage from './pages/BookingPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ const router = createBrowserRouter([
   {
     path: "/admin/dashboard",
     element: <Dashboard />
-  }
+  },
+  {
+    path: "/admin/bookings/:bookingId",
+    element: <BookingPage />
+  },
 ]);
 
 
