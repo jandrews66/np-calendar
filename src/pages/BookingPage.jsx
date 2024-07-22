@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { format, parseISO } from "date-fns";
+import DeleteDialog from '../components/DeleteDialog.jsx'
 
 export default function BookingPage() {
     const [booking, setBooking] = useState({});
@@ -88,6 +89,33 @@ export default function BookingPage() {
         }
     };
 
+    const handleDelete = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('No token found');
+                localStorage.removeItem('token');
+                navigate('/login');
+                return;
+            }
+            const response = await fetch(`http://localhost:3000/booking/${bookingId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                console.log('Booking deleted successfully');
+                navigate('/admin/dashboard');
+            } else {
+                console.log('Delete failed');
+            }
+        } catch (error) {
+            console.error('Error deleting booking', error);
+        }
+    };
     return (
         <div className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg">
             <p className="font-medium text-gray-700 mb-2">Date: {booking.date ? format(parseISO(booking.date), 'dd MMMM yyyy') : 'Loading...'}</p>
@@ -181,6 +209,9 @@ export default function BookingPage() {
                     <button type="submit" className="w-full py-2 px-4 bg-emerald-600 text-white font-semibold rounded-md shadow-md hover:bg-emerald-700 ">
                         Save
                     </button>
+                )}
+                {booking.booking_status === "cancelled" && (
+                    <DeleteDialog handleDelete={handleDelete} />
                 )}
             </form>
         </div>

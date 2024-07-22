@@ -41,7 +41,12 @@ export default function BookingForm(){
         const data = await response.json();
         if (response.ok) {
             console.log('booking created', data);
-            navigate('/')
+            //if status is confirmed admin created booking
+            if (status === "confirmed"){
+                navigate('/admin/dashboard')
+            } else {
+                navigate('/')
+            }
           } else {
             console.log('booking failed', data);
           }
