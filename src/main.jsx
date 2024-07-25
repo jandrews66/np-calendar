@@ -1,15 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import BookingForm from './components/BookingForm.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import UserCalendar from './pages/UserCalendar.jsx'
 import BookingPage from './pages/BookingPage.jsx'
 import ViewBookings from './pages/ViewBookings.jsx';
 import SearchResults from './pages/SearchResults.jsx';
+import UserCreateBooking from './pages/UserCreateBooking.jsx'
+import AdminCreateBooking from './pages/AdminCreateBooking.jsx'
+import UserConfirmation from './pages/UserConfirmation.jsx';
 
 const router = createBrowserRouter([
   {
@@ -18,11 +19,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/create",
-    element: <BookingForm />,
+    element: <UserCreateBooking />,
   },
   {
     path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/confirmation",
+    element: <UserConfirmation />,
+  },
+  {
+    path: "/admin/create",
+    element: <AdminCreateBooking />
   },
   {
     path: "/admin/dashboard",

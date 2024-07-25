@@ -13,7 +13,7 @@ export default function SearchResults(){
     return (
         <>
             <AdminNav />
-            <h1 className="text-2xl text-center py-6">Search Results</h1>
+            <h1 className="text-3xl text-center py-6">Search Results</h1>
             <div className="container mx-auto p-6 max-w-4xl">
             {bookings && bookings.length > 0 ? (
                 bookings.map((booking) => (

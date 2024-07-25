@@ -12,8 +12,7 @@ export default function Dashboard() {
 
     function handleClick(date, slot) {
         //admin is creating booking so status is confirmed
-        const status = "confirmed";
-        navigate('/create', { state: { date, slot, status } })
+        navigate('/admin/create', { state: { date, slot } })
     }
 
     function handleEdit(booking){

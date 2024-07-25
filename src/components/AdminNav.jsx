@@ -37,6 +37,10 @@ export default function AdminNav() {
         }
     }
     
+    function handleLogout(){
+        localStorage.removeItem('token')
+        navigate('/login')
+    }
     return (
         <nav className="bg-gray-800 p-4">
             <div className="flex justify-between">
@@ -46,20 +50,27 @@ export default function AdminNav() {
 
                 </div>
                 <div className="flex items-center gap-5">
-                    <form onSubmit={handleSubmit}>
-                        <input 
+                    <form className="flex"onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            className="w-full border-2 rounded-md px-2 rounded-r-none focus:outline-none focus:border-indigo-400" 
                             id="searchBar" 
                             onChange={(e)=> setQuery(e.target.value)}
                         >
                         </input>
                         <button 
-                            className="bg-slate-300 px-2 "
+                            className="bg-indigo-700 text-white py-1 px-4 rounded-r-md"
                             type="submit"
                         >
                             Search
                         </button>
                     </form>
-                    <button className= "text-white px-2 rounded">Logout</button>
+                    <button 
+                        className= "text-white px-2 rounded"
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </button>
                 </div>
             </div>
         </nav>

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { format } from "date-fns";
 
-export default function BookingForm(){
+export default function AdminCreateBooking(){
     const location = useLocation();
     const { date, slot, status } = location.state || {};
     const [firstName, setFirstName] = useState('')
@@ -10,6 +10,7 @@ export default function BookingForm(){
     const [telephone, setTelephone] = useState('')
     const [email, setEmail] = useState('')
     const [attendance, setAttendance] = useState('')
+    const [bookingStatus, setBookingStatus] = useState('')
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -26,7 +27,7 @@ export default function BookingForm(){
             telephone, 
             email, 
             attendance, 
-            status 
+            status: bookingStatus 
         };
         console.log("form data" + formData.date)
         
@@ -41,12 +42,7 @@ export default function BookingForm(){
         const data = await response.json();
         if (response.ok) {
             console.log('booking created', data);
-            //if status is confirmed admin created booking
-            if (status === "confirmed"){
                 navigate('/admin/dashboard')
-            } else {
-                navigate('/')
-            }
           } else {
             console.log('booking failed', data);
           }
@@ -109,6 +105,19 @@ export default function BookingForm(){
                         onChange={(e) => setAttendance(e.target.value)}
                         required
                     />
+                </div>
+                <div>
+                    <label htmlFor="booking_status" className="block text-sm font-medium text-gray-700">Booking Status:</label>
+                    <select
+                        id="booking_status"
+                        value={bookingStatus}
+                        onChange={(e) => setBookingStatus(e.target.value)}
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        required
+                    >
+                        <option value="provisional">Provisional</option>
+                        <option value="confirmed">Confirmed</option>
+                    </select>
                 </div>
                 <button type="submit" className="w-full py-2 px-4 bg-emerald-600 text-white font-semibold rounded-md shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">Submit</button>
             </form>

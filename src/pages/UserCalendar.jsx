@@ -12,8 +12,7 @@ export default function UserCalendar() {
     function handleClick(date, slot) {
         console.log(`Click on ${slot} slot of date ${format(date, 'yyyy-MM-dd')}`);
         //user created booking so status is provisional
-        const status = "provisional"
-        navigate('/create', { state: { date, slot, status } })
+        navigate('/create', { state: { date, slot } })
     }
 
     return (

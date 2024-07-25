@@ -46,7 +46,7 @@ export default function ViewBookings() {
             {!loading ? (
                 bookings.length > 0 ? (
                     <div className="overflow-x-auto max-w-6xl mx-auto px-10">
-                        <h1 className="text-4xl text-center py-10">Booking Requests</h1>
+                        <h1 className="text-3xl text-center py-10">Booking Requests</h1>
                         <table className="min-w-full bg-white">
                             <thead>
                                 <tr>
@@ -65,7 +65,7 @@ export default function ViewBookings() {
                                 {bookings.map((booking) => (
                                     <tr key={booking._id}>
                                         <td className="border px-2 py-2">{format(parseISO(booking.date), 'dd/MM/yy')}</td>
-                                        <td className="border px-2 py-2">{booking.slot === 'A' ? '2-6pm' : '7-11pm'}</td>
+                                        <td className="border px-2 py-2 whitespace-nowrap">{booking.slot === 'A' ? '2-6pm' : '7-11pm'}</td>
                                         <td className="border px-2 py-2">{booking.first_name}</td>
                                         <td className="border px-2 py-2">{booking.last_name}</td>
                                         <td className="border px-2 py-2">{booking.telephone}</td>
