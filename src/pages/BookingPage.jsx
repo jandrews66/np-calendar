@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { format, parseISO } from "date-fns";
 import DeleteDialog from '../components/DeleteDialog.jsx'
+import AdminNav from '../components/AdminNav';
 
 export default function BookingPage() {
     const [booking, setBooking] = useState({});
@@ -79,7 +80,7 @@ export default function BookingPage() {
             const data = await response.json();
 
             if (response.ok) {
-                console.log('Post updated', data);
+                console.log('Booking updated', data);
                 navigate(0)
             } else {
                 console.log('Update failed', data)
@@ -116,7 +117,10 @@ export default function BookingPage() {
             console.error('Error deleting booking', error);
         }
     };
+    
     return (
+        <>
+        <AdminNav />
         <div className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg">
             <p className="font-medium text-gray-700 mb-2">Date: {booking.date ? format(parseISO(booking.date), 'dd MMMM yyyy') : 'Loading...'}</p>
             <p className="font-medium text-gray-700 mb-4">Slot: {booking.slot === 'A' ? '2-6pm' : '7-11pm'}</p>
@@ -215,5 +219,6 @@ export default function BookingPage() {
                 )}
             </form>
         </div>
+        </>
     );
 }

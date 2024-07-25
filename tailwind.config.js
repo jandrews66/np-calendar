@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        'layout': '1fr 1fr auto auto auto', // The last two columns are set to auto to fit their content
+      },
+    },
   },
   plugins: [],
 }

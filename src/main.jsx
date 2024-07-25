@@ -8,6 +8,8 @@ import LoginPage from './pages/LoginPage.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import UserCalendar from './pages/UserCalendar.jsx'
 import BookingPage from './pages/BookingPage.jsx'
+import ViewBookings from './pages/ViewBookings.jsx';
+import SearchResults from './pages/SearchResults.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
   {
     path: "/admin/bookings/:bookingId",
     element: <BookingPage />
+  },
+  {
+    path: "/admin/bookings",
+    element: <ViewBookings />
+  },
+  {
+    path: "/admin/search",
+    element: <SearchResults />
   },
 ]);
 

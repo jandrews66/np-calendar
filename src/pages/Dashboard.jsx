@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { format } from 'date-fns';
 import FetchBookings from '../components/FetchBookings';
 import Calendar from '../components/Calendar';
+import AdminNav from '../components/AdminNav';
 
 export default function Dashboard() {
     const [bookings, setBookings] = useState([]);
@@ -23,6 +24,7 @@ export default function Dashboard() {
 
     return (
         <>
+            <AdminNav />
             <FetchBookings setBookings={setBookings} setLoading={setLoading} />
             <Calendar bookings={bookings} loading={loading} handleClick={handleClick} handleEdit={handleEdit} showNames={true} />
         </>
