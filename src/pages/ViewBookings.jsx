@@ -3,11 +3,20 @@ import FetchProvisionalBookings from '../components/FetchProvisionalBookings';
 import { format, parseISO } from "date-fns";
 import { useNavigate } from 'react-router-dom';
 import AdminNav from '../components/AdminNav';
+import moment from 'moment-timezone';
+
 
 export default function ViewBookings() {
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+
+    function formatDate(d) {
+        const date = moment.utc(d); // Create a moment object in UTC
+        const formattedDate = date.format('DD-MMM-yy'); // Convert to specified timezone and format
+    
+        return formattedDate; // Outputs date in the specified timezone
+    }
 
     const confirmBooking = async (bookingId) => {
         try {
@@ -64,7 +73,7 @@ export default function ViewBookings() {
                             <tbody>
                                 {bookings.map((booking) => (
                                     <tr key={booking._id}>
-                                        <td className="border px-2 py-2">{format(parseISO(booking.date), 'dd/MM/yy')}</td>
+                                        <td className="border px-2 py-2 whitespace-nowrap">{formatDate(booking.date)}</td>
                                         <td className="border px-2 py-2 whitespace-nowrap">{booking.slot === 'A' ? '2-6pm' : '7-11pm'}</td>
                                         <td className="border px-2 py-2">{booking.first_name}</td>
                                         <td className="border px-2 py-2">{booking.last_name}</td>

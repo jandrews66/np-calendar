@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { format, parseISO } from "date-fns";
+import { format, parseISO, formatISO } from "date-fns";
+import moment from 'moment-timezone';
 import DeleteDialog from '../components/DeleteDialog.jsx'
 import AdminNav from '../components/AdminNav';
 
@@ -8,6 +9,8 @@ export default function BookingPage() {
     const [booking, setBooking] = useState({});
     const [originalBooking, setOriginalBooking] = useState({});
     const { bookingId } = useParams();
+    const [date, setDate] = useState('');
+    const [slot, setSlot] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [telephone, setTelephone] = useState('');
@@ -15,8 +18,15 @@ export default function BookingPage() {
     const [attendance, setAttendance] = useState('');
     const [bookingStatus, setBookingStatus] = useState('');
     const [disabled, setDisabled] = useState(true);
+    const [error, setError] = useState(null)
     const navigate = useNavigate();
 
+    function formatDate(d) {
+        const date = moment.utc(d); // Create a moment object in UTC
+        const formattedDate = date.format('YYYY-MM-DD'); // Convert to specified timezone and format
+    
+        return formattedDate; // Outputs date in the specified timezone
+    }
 
     useEffect(() => {
         fetch(`http://localhost:3000/booking/${bookingId}`, {
@@ -27,6 +37,8 @@ export default function BookingPage() {
         .then((data) => {
             setBooking(data);
             setOriginalBooking(data); // Store the original booking data
+            setDate(formatDate(data.date))
+            setSlot(data.slot)
             setFirstName(data.first_name);
             setLastName(data.last_name);
             setTelephone(data.telephone);
@@ -40,6 +52,8 @@ export default function BookingPage() {
     const handleEditClick = () => {
         if (!disabled) {
             // If canceling, reset the form fields to the original values
+            setDate(formatDate(originalBooking.date))
+            setSlot(originalBooking.slot)
             setFirstName(originalBooking.first_name);
             setLastName(originalBooking.last_name);
             setTelephone(originalBooking.telephone);
@@ -52,7 +66,10 @@ export default function BookingPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const formattedDate = new Date(date).toISOString()
         const formData = { 
+            date: formattedDate,
+            slot,
             firstName, 
             lastName, 
             telephone, 
@@ -84,6 +101,7 @@ export default function BookingPage() {
                 navigate(0)
             } else {
                 console.log('Update failed', data)
+                setError(data.error);
             }
         } catch (error) {
             console.error('Error', error)
@@ -122,9 +140,34 @@ export default function BookingPage() {
         <>
         <AdminNav />
         <div className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg">
-            <p className="font-medium text-gray-700 mb-2">Date: {booking.date ? format(parseISO(booking.date), 'dd MMMM yyyy') : 'Loading...'}</p>
-            <p className="font-medium text-gray-700 mb-4">Slot: {booking.slot === 'A' ? '2-6pm' : '7-11pm'}</p>
+            <p className="font-medium text-gray-700 mb-2">Date: {booking.date ? booking.date : 'Loading...'}</p>
             <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+                    <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date:</label>
+                    <input
+                        type="date"
+                        id="date"
+                        value={date}
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        onChange={(e) => setDate(e.target.value)}
+                        required
+                        disabled={disabled}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="slot" className="block text-sm font-medium text-gray-700">Slot:</label>
+                    <select
+                        id="slot"
+                        value={slot}
+                        onChange={(e) => setSlot(e.target.value)}
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        required
+                        disabled={disabled}
+                    >
+                        <option value="A">2-6pm</option>
+                        <option value="B">7-11pm</option>
+                    </select>
+                </div>
                 <div>
                     <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name:</label>
                     <input
@@ -202,6 +245,7 @@ export default function BookingPage() {
                         <option value="cancelled">Cancelled</option>
                     </select>
                 </div>
+                {error && <p className="text-red-500 mb-4">{error}</p>} {/* Display error message */}
                 <button
                     type="button"
                     onClick={handleEditClick}

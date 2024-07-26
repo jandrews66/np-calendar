@@ -15,7 +15,6 @@ export default function Calendar({ bookings, loading, handleClick, handleEdit, s
         start: firstDayOfMonth,
         end: lastDayOfMonth,
     }).map(day => {
-    
         const utcDay = new Date(Date.UTC(day.getFullYear(), day.getMonth(), day.getDate())); //format date to UTC to match mongodb timezone
         const formattedDay = utcDay.toISOString(); // Get the ISO string in the format "YYYY-MM-DDT00:00:00.000Z" to compare against mongodb dates  
 

@@ -8,7 +8,6 @@ export default function AdminNav() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(query);
         try {
             const token = localStorage.getItem('token');
             if (!token) {
