@@ -59,15 +59,15 @@ export default function ViewBookings() {
                         <table className="min-w-full bg-white">
                             <thead>
                                 <tr>
-                                    <th className="px-2 py-2">Date</th>
-                                    <th className="px-2 py-2">Slot</th>
-                                    <th className="px-2 py-2">First Name</th>
-                                    <th className="px-2 py-2">Last Name</th>
-                                    <th className="px-2 py-2">Telephone</th>
-                                    <th className="px-2 py-2">Email</th>
-                                    <th className="px-2 py-2">Attendance</th>
-                                    <th className="px-2 py-2">Status</th>
-                                    <th className="px-2 py-2"></th>
+                                    <th className="text-sm px-2 py-2">Date</th>
+                                    <th className="text-sm px-2 py-2">Slot</th>
+                                    <th className="text-sm px-2 py-2">First Name</th>
+                                    <th className="text-sm px-2 py-2">Last Name</th>
+                                    <th className="text-sm px-2 py-2">Telephone</th>
+                                    <th className="text-sm px-2 py-2">Email</th>
+                                    <th className="text-sm px-2 py-2">Attendance</th>
+                                    <th className="text-sm px-2 py-2">Status</th>
+                                    <th className="text-sm px-2 py-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,14 +82,19 @@ export default function ViewBookings() {
                                         <td className="border px-2 py-2 ">{booking.attendance}</td>
                                         <td className="border px-2 py-2">{booking.booking_status}</td>
                                         <td className="border px-2 py-2">
-                                            {booking.booking_status === 'provisional' && (
-                                                <button
-                                                    className="bg-green-600 text-white px-2 py-1 rounded"
-                                                    onClick={() => confirmBooking(booking._id)}
-                                                >
-                                                    Confirm
-                                                </button>
-                                            )}
+                                        <button
+                                            className="text-sm bg-blue-500 text-white px-2 py-1 mr-2 rounded"
+                                            onClick={() => navigate(`/admin/bookings/${booking._id}`)
+                                        }
+                                        >
+                                             View
+                                        </button>
+                                        <button
+                                            className="text-sm bg-green-600 text-white px-2 py-1 rounded"
+                                            onClick={() => confirmBooking(booking._id)}
+                                        >
+                                             Confirm
+                                        </button>
                                         </td>
                                     </tr>
                                 ))}

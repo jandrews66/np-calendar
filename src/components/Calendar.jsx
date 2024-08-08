@@ -53,39 +53,39 @@ export default function Calendar({ bookings, loading, handleClick, handleEdit, s
                                 ))}
                     </select>
                 </div>
-                    <div className="grid grid-cols-7 gap-2">
+                    <div className="grid grid-cols-7 gap-1 md:gap-2">
                             {weekdays.map((day) => (
-                                <div key={day} className="font-semi-bold text-center">{day}</div>
+                                <div key={day} className="font-semi-bold text-center text-sm md:text-base">{day}</div>
                             ))}
                             {Array.from({ length: startingDayIndex }).map((_, index) => (
                                 <div key={`empty-${index}`}></div>
                             ))}
                             {daysInMonth.map((dayObj, index) => (
-                                <div key={index} className={`border rounded-md text-center`}>
+                                <div key={index} className={`border rounded-md text-center text-xs md:text-base`}>
                                     <div className="bg-slate-100 p-1">{format(dayObj.date, "d")}</div>
                                     <div>
                                         {dayObj.slotA ? (
-                                            <div className={`border-t text-sm p-2 ${dayObj.slotA.booking_status === "provisional" ?  'bg-yellow-200' : 'bg-red-100' }`}>
-                                                {showNames ? <button onClick={() => handleEdit(dayObj.slotA)}>{dayObj.slotA.last_name}</button> : <p>Unavailable</p>}
+                                            <div className={`border-t text-sm p-2 h-10 ${dayObj.slotA.booking_status === "provisional" && showNames ?  'bg-yellow-200' : 'bg-red-100' }`}>
+                                                {showNames ? <button onClick={() => handleEdit(dayObj.slotA)}>{dayObj.slotA.last_name}</button> : <p>-</p>}
                                             </div>    
                                         ) : (
                                             isAfter(dayObj.date, currentDate) ? (
-                                                <button onClick={() => handleClick(dayObj.date, 'A')} className="bg-green-200 w-full h-full border-t text-sm p-2 hover:bg-green-400">2-6pm</button>
+                                                <button onClick={() => handleClick(dayObj.date, 'A')} className="bg-green-200 w-full h-10 border-t p-1 md:p-2 text-xs md:text-sm hover:bg-green-400">2-6pm</button>
                                             ) : (
-                                                <div className="border-t text-sm p-2 bg-red-100">Unavailable</div>
+                                                <div className="border-t text-sm p-2 h-10 bg-red-100">-</div>
                                             )
                                         )}
                                     </div>
                                     <div>
                                         {dayObj.slotB ? (
-                                            <div className={`border-t text-sm p-2 ${dayObj.slotB.booking_status === "provisional" ?  'bg-yellow-200' : 'bg-red-100' }`}>
-                                                {showNames ? <button onClick={() => handleEdit(dayObj.slotB)}>{dayObj.slotB.last_name}</button> : <p>Unavailable</p>}
+                                            <div className={`border-t text-sm p-2 h-10 ${dayObj.slotB.booking_status === "provisional" && showNames ?  'bg-yellow-200' : 'bg-red-100' }`}>
+                                                {showNames ? <button onClick={() => handleEdit(dayObj.slotB)}>{dayObj.slotB.last_name}</button> : <p>-</p>}
                                             </div>
                                         ) : (
                                             isAfter(dayObj.date, currentDate) ? (
-                                                <button onClick={() => handleClick(dayObj.date, 'B')} className="bg-green-200 w-full h-full border-t text-sm p-2 hover:bg-green-400">7-11pm</button>
+                                                <button onClick={() => handleClick(dayObj.date, 'B')} className="bg-green-200 w-full h-10 border-t p-1 md:p-2 text-xs md:text-sm hover:bg-green-400">7-11pm</button>
                                             ) : (
-                                                <div className="border-t text-sm p-2 bg-red-100">Unavailable</div>
+                                                <div className="border-t text-sm p-2 h-10 bg-red-100">-</div>
                                             )
                                         )}
                                     </div>

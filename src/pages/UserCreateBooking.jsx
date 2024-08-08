@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { format } from "date-fns";
 
-export default function UserCreateBooking(){
+export default function UserCreateBooking() {
     const location = useLocation();
     const { date, slot } = location.state || {};
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [telephone, setTelephone] = useState('')
-    const [email, setEmail] = useState('')
-    const [attendance, setAttendance] = useState('')
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [telephone, setTelephone] = useState('');
+    const [email, setEmail] = useState('');
+    const [attendance, setAttendance] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -28,24 +28,31 @@ export default function UserCreateBooking(){
             attendance, 
             status: "provisional"
         };
-        console.log("form data" + formData.date)
-        
-        const response = await fetch('http://localhost:3000/booking/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(formData),
-        });
 
-        const data = await response.json();
-        if (response.ok) {
-            console.log('booking created', data);
-            navigate('/confirmation', { state: { name: firstName, email: email } })
-          } else {
-            console.log('booking failed', data);
-          }
-    }
+        console.log("Submitting form data:", formData);
+
+        try {
+            const response = await fetch('http://localhost:3000/booking/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+            console.log('Response received:', data);
+
+            if (response.ok) {
+                console.log('Booking created successfully:', data);
+                navigate('/confirmation', { state: { booking: data } });
+            } else {
+                console.log('Booking failed:', data);
+            }
+        } catch (error) {
+            console.error('Error during form submission:', error);
+        }
+    };
 
 
     return (

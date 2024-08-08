@@ -140,7 +140,6 @@ export default function BookingPage() {
         <>
         <AdminNav />
         <div className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg">
-            <p className="font-medium text-gray-700 mb-2">Date: {booking.date ? booking.date : 'Loading...'}</p>
             <form onSubmit={handleSubmit} className="space-y-6">
             <div>
                     <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date:</label>
