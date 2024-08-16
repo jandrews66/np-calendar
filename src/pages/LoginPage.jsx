@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 export default function LoginPage(){
     const [username, setUsername] = useState('')
@@ -7,6 +7,14 @@ export default function LoginPage(){
     const [errors, setErrors] = useState('');
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // on component mount check if any errors passed (used for expired jwts )
+    useEffect(() => {
+        if (location.state?.errorMsg) {
+            setErrors([{ msg: location.state.errorMsg }]);
+        }
+    }, [location.state]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

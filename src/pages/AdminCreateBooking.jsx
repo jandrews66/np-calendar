@@ -31,11 +31,14 @@ export default function AdminCreateBooking(){
         };
         console.log("form data" + formData.date)
         
+        const token = localStorage.getItem('token')
+
         const response = await fetch('http://localhost:3000/booking/create', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-              },
+            headers: { 
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
               body: JSON.stringify(formData),
         });
 
@@ -43,9 +46,12 @@ export default function AdminCreateBooking(){
         if (response.ok) {
             console.log('booking created', data);
                 navigate('/admin/dashboard')
-          } else {
+            } else if (response.status === 401) {
+            localStorage.removeItem('token');
+            navigate('/login', { state: { errorMsg: 'Session expired, please login' } });
+            } else {
             console.log('booking failed', data);
-          }
+        }
     }
 
 

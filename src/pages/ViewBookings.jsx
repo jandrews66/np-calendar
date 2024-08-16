@@ -81,7 +81,7 @@ export default function ViewBookings() {
                                         <td className="border px-2 py-2">{booking.email}</td>
                                         <td className="border px-2 py-2 ">{booking.attendance}</td>
                                         <td className="border px-2 py-2">{booking.booking_status}</td>
-                                        <td className="border px-2 py-2">
+                                        <td className="border px-2 py-2 whitespace-nowrap">
                                         <button
                                             className="text-sm bg-blue-500 text-white px-2 py-1 mr-2 rounded"
                                             onClick={() => navigate(`/admin/bookings/${booking._id}`)

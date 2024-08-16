@@ -99,11 +99,15 @@ export default function BookingPage() {
             if (response.ok) {
                 console.log('Booking updated', data);
                 navigate(0)
+            } else if (response.status === 401) {
+                localStorage.removeItem('token');
+                navigate('/login', { state: { errorMsg: 'Session expired, please login' } });
             } else {
                 console.log('Update failed', data)
                 setError(data.error);
-            }
-        } catch (error) {
+            }    
+        }
+         catch (error) {
             console.error('Error', error)
         }
     };
@@ -128,7 +132,11 @@ export default function BookingPage() {
             if (response.ok) {
                 console.log('Booking deleted successfully');
                 navigate('/admin/dashboard');
-            } else {
+            } else if (response.status === 401) {
+                localStorage.removeItem('token');
+                navigate('/login', { state: { errorMsg: 'Session expired, please login' } });
+            }
+            else {
                 console.log('Delete failed');
             }
         } catch (error) {
@@ -140,14 +148,14 @@ export default function BookingPage() {
         <>
         <AdminNav />
         <div className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
             <div>
                     <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date:</label>
                     <input
                         type="date"
                         id="date"
                         value={date}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        className="mt-1 block w-full px-3 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setDate(e.target.value)}
                         required
                         disabled={disabled}
@@ -159,7 +167,7 @@ export default function BookingPage() {
                         id="slot"
                         value={slot}
                         onChange={(e) => setSlot(e.target.value)}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        className="mt-1 block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         required
                         disabled={disabled}
                     >
@@ -173,7 +181,7 @@ export default function BookingPage() {
                         type="text"
                         id="firstName"
                         value={firstName}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        className="mt-1 block w-full px-3 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setFirstName(e.target.value)}
                         required
                         disabled={disabled}
@@ -185,7 +193,7 @@ export default function BookingPage() {
                         type="text"
                         id="lastName"
                         value={lastName}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        className="mt-1 block w-full px-3 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setLastName(e.target.value)}
                         required
                         disabled={disabled}
@@ -197,7 +205,7 @@ export default function BookingPage() {
                         type="tel"
                         id="telephone"
                         value={telephone}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        className="mt-1 block w-full px-3 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setTelephone(e.target.value)}
                         required
                         disabled={disabled}
@@ -209,7 +217,7 @@ export default function BookingPage() {
                         type="email"
                         id="email"
                         value={email}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        className="mt-1 block w-full px-3 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         disabled={disabled}
@@ -223,7 +231,7 @@ export default function BookingPage() {
                         value={attendance}
                         min="1"
                         max="60"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        className="mt-1 block w-full px-3 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setAttendance(e.target.value)}
                         required
                         disabled={disabled}
@@ -235,7 +243,7 @@ export default function BookingPage() {
                         id="booking_status"
                         value={bookingStatus}
                         onChange={(e) => setBookingStatus(e.target.value)}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        className="mt-1 block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         required
                         disabled={disabled}
                     >
