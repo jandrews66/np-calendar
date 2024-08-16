@@ -15,7 +15,7 @@ export default function AdminNav() {
                 localStorage.removeItem('token');
                 navigate('/login');
             }
-            const response = await fetch(`http://localhost:3000/bookings/search?q=${encodeURIComponent(query)}`, {
+            const response = await fetch(`https://np-calendar-api-production.up.railway.app/bookings/search?q=${encodeURIComponent(query)}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,

@@ -32,7 +32,7 @@ export default function UserCreateBooking() {
         console.log("Submitting form data:", formData);
 
         try {
-            const response = await fetch('http://localhost:3000/booking/create', {
+            const response = await fetch('https://np-calendar-api-production.up.railway.app/booking/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

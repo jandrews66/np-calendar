@@ -33,7 +33,7 @@ export default function AdminCreateBooking(){
         
         const token = localStorage.getItem('token')
 
-        const response = await fetch('http://localhost:3000/booking/create', {
+        const response = await fetch('https://np-calendar-api-production.up.railway.app/booking/create', {
             method: 'POST',
             headers: { 
                 'Authorization': `Bearer ${token}`,
