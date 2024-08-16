@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import FetchProvisionalBookings from '../components/FetchProvisionalBookings';
-import { format, parseISO } from "date-fns";
+import FetchProvisionalBookings from '../components/FetchProvisionalBookings.jsx';
 import { useNavigate } from 'react-router-dom';
-import AdminNav from '../components/AdminNav';
+import AdminNav from '../components/AdminNav.jsx';
 import moment from 'moment-timezone';
 
 

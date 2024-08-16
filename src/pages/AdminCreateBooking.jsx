@@ -4,7 +4,7 @@ import { format } from "date-fns";
 
 export default function AdminCreateBooking(){
     const location = useLocation();
-    const { date, slot, status } = location.state || {};
+    const { date, slot } = location.state || {};
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [telephone, setTelephone] = useState('')

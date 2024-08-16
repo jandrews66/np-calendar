@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import moment from 'moment-timezone';
 import DeleteDialog from '../components/DeleteDialog.jsx'
-import AdminNav from '../components/AdminNav';
+import AdminNav from '../components/AdminNav.jsx';
 
 export default function BookingPage() {
     const [booking, setBooking] = useState({});
