@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { format } from 'date-fns';
 import FetchBookings from '../components/FetchBookings';
 import Calendar from '../components/Calendar';
 import AdminNav from '../components/AdminNav';
