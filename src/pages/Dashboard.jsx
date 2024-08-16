@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import FetchBookings from '../components/FetchBookings.jsx';
+import FetchBookings from '@/components/FetchBookings'
 import Calendar from '../components/Calendar.jsx';
 import AdminNav from '../components/AdminNav.jsx';
 
