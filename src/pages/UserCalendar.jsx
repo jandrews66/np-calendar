@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { format } from 'date-fns';
-import FetchBookings from '../components/FetchBookings.jsx';
-import Calendar from '../components/Calendar.jsx';
+import FetchBookings from "src/components/FetchBookings.jsx";
+import Calendar from "src/components/Calendar.jsx";
 
 export default function UserCalendar() {
     const [bookings, setBookings] = useState([]);
