@@ -18,7 +18,8 @@ export default function ViewBookings() {
         return formattedDate; // Outputs date in the specified timezone
     }
 
-    const confirmBooking = async (bookingId) => {
+    const handleBooking = async (bookingId, status) => {
+
         try {
             const token = localStorage.getItem('token');
             if (!token) {
@@ -26,13 +27,13 @@ export default function ViewBookings() {
                 localStorage.removeItem('token')
                 navigate('/login')
             }
-            const response = await fetch(`https://np-calendar-api-production.up.railway.app/booking/${bookingId}`, {
+            const response = await fetch(`https://np-calendar-api-production.up.railway.app/booking/handle/${bookingId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ bookingStatus: 'confirmed' })
+                body: JSON.stringify({ booking_status: status })
             });
 
             const data = await response.json();
@@ -48,6 +49,8 @@ export default function ViewBookings() {
         }
 
     }
+
+    
     return (
         <>
             <AdminNav />
@@ -91,9 +94,15 @@ export default function ViewBookings() {
                                         </button>
                                         <button
                                             className="text-sm bg-green-600 text-white px-2 py-1 rounded"
-                                            onClick={() => confirmBooking(booking._id)}
+                                            onClick={() => handleBooking(booking._id, 'confirmed')}
                                         >
-                                             Confirm
+                                             Accept
+                                        </button>
+                                        <button
+                                            className="text-sm bg-green-600 text-white px-2 py-1 rounded"
+                                            onClick={() => handleBooking(booking._id, 'cancelled')}
+                                        >
+                                             Decline
                                         </button>
                                         </td>
                                     </tr>
