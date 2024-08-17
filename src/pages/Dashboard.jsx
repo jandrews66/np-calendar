@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import FetchBookings from "src/components/FetchBookings";
-import Calendar from "src/components/Calendar";
-import AdminNav from "src/components/AdminNav";
+import FetchBookings from "@/components/FetchBookings.jsx";
+import Calendar from "@/components/Calendar";
+import AdminNav from "@/components/AdminNav";
 
 export default function Dashboard() {
     const [bookings, setBookings] = useState([]);
