@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { format } from "date-fns";
+import AdminNav from '../components/AdminNav';
 
 export default function AdminCreateBooking(){
     const location = useLocation();
@@ -56,6 +57,8 @@ export default function AdminCreateBooking(){
 
 
     return (
+        <>
+        <AdminNav />
         <div className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg">
             <p className="font-medium text-gray-700 mb-2">Date: {date ? format(date, 'dd MMMM yyyy') : 'No date selected'}</p>
             <p className="font-medium text-gray-700 mb-4">Slot: {slot === 'A' ? '2-6pm' : '7-11pm'}</p>
@@ -67,8 +70,7 @@ export default function AdminCreateBooking(){
                         id="firstName"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setFirstName(e.target.value)}
-                        required
-                    />
+                        required />
                 </div>
                 <div>
                     <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name:</label>
@@ -77,8 +79,7 @@ export default function AdminCreateBooking(){
                         id="lastName"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setLastName(e.target.value)}
-                        required
-                    />
+                        required />
                 </div>
                 <div>
                     <label htmlFor="telephone" className="block text-sm font-medium text-gray-700">Telephone:</label>
@@ -87,8 +88,7 @@ export default function AdminCreateBooking(){
                         id="telephone"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setTelephone(e.target.value)}
-                        required
-                    />
+                        required />
                 </div>
                 <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email:</label>
@@ -97,8 +97,7 @@ export default function AdminCreateBooking(){
                         id="email"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+                        required />
                 </div>
                 <div>
                     <label htmlFor="attendance" className="block text-sm font-medium text-gray-700">Number of Guests:</label>
@@ -109,8 +108,7 @@ export default function AdminCreateBooking(){
                         max="60"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setAttendance(e.target.value)}
-                        required
-                    />
+                        required />
                 </div>
                 <div>
                     <label htmlFor="booking_status" className="block text-sm font-medium text-gray-700">Booking Status:</label>
@@ -128,5 +126,6 @@ export default function AdminCreateBooking(){
                 <button type="submit" className="w-full py-2 px-4 bg-emerald-600 text-white font-semibold rounded-md shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">Submit</button>
             </form>
         </div>
+        </>
     );
 }

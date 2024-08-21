@@ -41,7 +41,11 @@ export default function ViewBookings() {
             if (response.ok) {
                 console.log('Booking updated', data);
                 navigate(0)
-            } else {
+            } else if (response.status === 401) {
+                localStorage.removeItem('token');
+                navigate('/login', { state: { errorMsg: 'Session expired, please login' } });
+            }
+            else {
                 console.log('Update failed', data);
             }        
         } catch (error) {
@@ -66,44 +70,44 @@ export default function ViewBookings() {
                                     <th className="text-sm px-2 py-2">Slot</th>
                                     <th className="text-sm px-2 py-2">First Name</th>
                                     <th className="text-sm px-2 py-2">Last Name</th>
-                                    <th className="text-sm px-2 py-2">Telephone</th>
                                     <th className="text-sm px-2 py-2">Email</th>
                                     <th className="text-sm px-2 py-2">Attendance</th>
-                                    <th className="text-sm px-2 py-2">Status</th>
-                                    <th className="text-sm px-2 py-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {bookings.map((booking) => (
-                                    <tr key={booking._id}>
+                                    <tr key={booking._id}
+                                        onClick={() => navigate(`/admin/bookings/${booking._id}`)}
+                                        className="hover:bg-slate-100 hover:cursor-pointer"
+                                    >
                                         <td className="border px-2 py-2 whitespace-nowrap">{formatDate(booking.date)}</td>
                                         <td className="border px-2 py-2 whitespace-nowrap">{booking.slot === 'A' ? '2-6pm' : '7-11pm'}</td>
                                         <td className="border px-2 py-2">{booking.first_name}</td>
                                         <td className="border px-2 py-2">{booking.last_name}</td>
-                                        <td className="border px-2 py-2">{booking.telephone}</td>
                                         <td className="border px-2 py-2">{booking.email}</td>
                                         <td className="border px-2 py-2 ">{booking.attendance}</td>
-                                        <td className="border px-2 py-2">{booking.booking_status}</td>
-                                        <td className="border px-2 py-2 whitespace-nowrap">
-                                        <button
-                                            className="text-sm bg-blue-500 text-white px-2 py-1 mr-2 rounded"
-                                            onClick={() => navigate(`/admin/bookings/${booking._id}`)
-                                        }
-                                        >
-                                             View
-                                        </button>
-                                        <button
-                                            className="text-sm bg-green-600 text-white px-2 py-1 rounded"
-                                            onClick={() => handleBooking(booking._id, 'confirmed')}
-                                        >
-                                             Accept
-                                        </button>
-                                        <button
-                                            className="text-sm bg-green-600 text-white px-2 py-1 rounded"
-                                            onClick={() => handleBooking(booking._id, 'cancelled')}
-                                        >
-                                             Decline
-                                        </button>
+                                        <td className="border p-1 whitespace-nowrap">
+                                            <div className="flex space-x-2">
+                                                <button
+                                                className="text-sm bg-green-600 text-white px-2 py-1 rounded"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleBooking(booking._id, 'confirmed')}
+                                                }
+                                                >
+                                                Accept
+                                                </button>
+                                                <button
+                                                    className="text-sm bg-red-600 text-white px-2 py-1 rounded"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleBooking(booking._id, 'cancelled')}
+                                                    }
+                                                >
+                                                    Decline
+                                                </button>
+                                            </div>
+
                                         </td>
                                     </tr>
                                 ))}
