@@ -62,7 +62,7 @@ export default function Calendar({ bookings, loading, handleClick, handleEdit, s
                             ))}
                             {daysInMonth.map((dayObj, index) => (
                                 <div key={index} className={`border rounded-md text-center text-xs md:text-base`}>
-                                    <div className="bg-slate-100 p-1">{format(dayObj.date, "d")}</div>
+                                    <div className="bg-slate-100 p-0.5">{format(dayObj.date, "d")}</div>
                                     <div>
                                         {dayObj.slotA ? (
                                             <div className={`border-t text-sm p-2 h-10 ${dayObj.slotA.booking_status === "provisional" && showNames ?  'bg-yellow-200' : 'bg-red-100' }`}>

@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { format } from "date-fns";
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 export default function UserCreateBooking() {
     const location = useLocation();
@@ -10,12 +13,17 @@ export default function UserCreateBooking() {
     const [telephone, setTelephone] = useState('');
     const [email, setEmail] = useState('');
     const [attendance, setAttendance] = useState('');
+    const [reason, setReason] = useState('');
+    const [checked, setChecked] = useState(false)
+
+
     const navigate = useNavigate();
 
+    const handleCheckbox = (e) => {
+        setChecked(e.target.checked)
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Format date to 'yyyy-MM-dd' for consistency
         const formattedDate = format(new Date(date), 'yyyy-MM-dd');
 
         const formData = { 
@@ -25,11 +33,10 @@ export default function UserCreateBooking() {
             lastName, 
             telephone, 
             email, 
-            attendance, 
+            attendance,
+            reason, 
             status: "provisional"
         };
-
-        console.log("Submitting form data:", formData);
 
         try {
             const response = await fetch('https://np-calendar-api-production.up.railway.app/booking/create', {
@@ -41,10 +48,8 @@ export default function UserCreateBooking() {
             });
 
             const data = await response.json();
-            console.log('Response received:', data);
 
             if (response.ok) {
-                console.log('Booking created successfully:', data);
                 navigate('/confirmation', { state: { booking: data } });
             } else {
                 console.log('Booking failed:', data);
@@ -54,66 +59,102 @@ export default function UserCreateBooking() {
         }
     };
 
-
     return (
-        <div className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg">
-            <p className="font-medium text-gray-700 mb-2">Date: {date ? format(date, 'dd MMMM yyyy') : 'No date selected'}</p>
-            <p className="font-medium text-gray-700 mb-4">Slot: {slot === 'A' ? '2-6pm' : '7-11pm'}</p>
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name:</label>
-                    <input
-                        type="text"
-                        id="firstName"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
-                        onChange={(e) => setFirstName(e.target.value)}
-                        required
-                    />
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 sm:px-6 lg:px-8">
+            <div className="text-center mb-6">
+                <h2 className="text-3xl font-extrabold text-gray-900">Submit Your Booking Request</h2>
+                <p className="mt-2 text-lg text-gray-600">Please fill in the details below</p>
+            </div>
+            <div className="w-full max-w-md bg-white px-8 py-6 shadow-lg rounded-lg">
+                <div className="text-center bg-emerald-600 py-2">
+                <p className="text-white font-light">Date: <span className="font-medium">{date ? format(date, 'dd MMMM yyyy') : 'No date selected'} </span></p>
+                <p className="text-white font-light">Time slot: <span className="font-medium">{slot === 'A' ? '2-6pm' : '7-11pm'}</span></p>
+                <p className="text-white font-light">Minimum spend: <span className="font-medium">{slot === 'A' ? '$1000' : '$1500'}</span></p>
                 </div>
-                <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name:</label>
-                    <input
-                        type="text"
-                        id="lastName"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
-                        onChange={(e) => setLastName(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="telephone" className="block text-sm font-medium text-gray-700">Telephone:</label>
-                    <input
-                        type="tel"
-                        id="telephone"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
-                        onChange={(e) => setTelephone(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="attendance" className="block text-sm font-medium text-gray-700">Number of Guests:</label>
-                    <input
-                        type="number"
-                        id="attendance"
-                        min="1"
-                        max="60"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
-                        onChange={(e) => setAttendance(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit" className="w-full py-2 px-4 bg-emerald-600 text-white font-semibold rounded-md shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">Submit</button>
-            </form>
+                <hr className="my-4"></hr>
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
+                        <input
+                            type="text"
+                            id="firstName"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            onChange={(e) => setFirstName(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
+                        <input
+                            type="text"
+                            id="lastName"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            onChange={(e) => setLastName(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="telephone" className="block text-sm font-medium text-gray-700">Telephone</label>
+                        <input
+                            type="tel"
+                            id="telephone"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            onChange={(e) => setTelephone(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="attendance" className="block text-sm font-medium text-gray-700">Number of Guests</label>
+                        <input
+                            type="number"
+                            id="attendance"
+                            min="1"
+                            max="60"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            onChange={(e) => setAttendance(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="reason" className="block text-sm font-medium text-gray-700">Reason for Event</label>
+                        <input
+                            type="text"
+                            id="reason"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            onChange={(e) => setReason(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <FormGroup>
+                            <FormControlLabel
+                                required
+                                control={<Checkbox color="primary" />}
+                                onChange={handleCheckbox}
+                                label={
+                                    <a href="https://www.northpointbrewing.com" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline">
+                                        I have read and I accept the event terms and conditions found here.
+                                    </a>
+                                }
+                            />
+                        </FormGroup>
+                    </div>
+                    <button type="submit" className="w-full py-2 px-4 bg-emerald-600 text-white font-semibold rounded-md shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
+                        Submit
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }
