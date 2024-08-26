@@ -4,6 +4,20 @@ import { format } from "date-fns";
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { PhoneInput } from 'react-international-phone';
+import 'react-international-phone/style.css';
+import '../PhoneInputCustom.css';
+import { PhoneNumberUtil } from 'google-libphonenumber';
+
+const phoneUtil = PhoneNumberUtil.getInstance();
+
+const isPhoneValid = (telephone) => {
+    try {
+      return phoneUtil.isValidNumber(phoneUtil.parseAndKeepRawInput(telephone));
+    } catch (error) {
+      return false;
+    }
+};
 
 export default function UserCreateBooking() {
     const location = useLocation();
@@ -14,16 +28,20 @@ export default function UserCreateBooking() {
     const [email, setEmail] = useState('');
     const [attendance, setAttendance] = useState('');
     const [reason, setReason] = useState('');
-    const [checked, setChecked] = useState(false)
+    const [errors, setErrors] = useState('')
+    const isValid = isPhoneValid(telephone);
+
 
 
     const navigate = useNavigate();
 
-    const handleCheckbox = (e) => {
-        setChecked(e.target.checked)
-    }
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!isValid){
+            setErrors("Please enter a valid telephone number and try again")
+            return
+        }
         const formattedDate = format(new Date(date), 'yyyy-MM-dd');
 
         const formData = { 
@@ -53,6 +71,8 @@ export default function UserCreateBooking() {
                 navigate('/confirmation', { state: { booking: data } });
             } else {
                 console.log('Booking failed:', data);
+                setErrors(data.error)
+
             }
         } catch (error) {
             console.error('Error during form submission:', error);
@@ -96,11 +116,13 @@ export default function UserCreateBooking() {
                     </div>
                     <div>
                         <label htmlFor="telephone" className="block text-sm font-medium text-gray-700">Telephone</label>
-                        <input
-                            type="tel"
+                        <PhoneInput
+                            defaultCountry="ca"
                             id="telephone"
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
-                            onChange={(e) => setTelephone(e.target.value)}
+                            value={telephone}
+                            onChange={(telephone) => setTelephone(telephone)}
+                            inputClassName="w-full !h-10 !text-base"
+                            className="my-1"
                             required
                         />
                     </div>
@@ -119,7 +141,7 @@ export default function UserCreateBooking() {
                         <input
                             type="number"
                             id="attendance"
-                            min="1"
+                            min="10"
                             max="60"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                             onChange={(e) => setAttendance(e.target.value)}
@@ -131,6 +153,7 @@ export default function UserCreateBooking() {
                         <input
                             type="text"
                             id="reason"
+                            minLength="8"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                             onChange={(e) => setReason(e.target.value)}
                             required
@@ -141,7 +164,6 @@ export default function UserCreateBooking() {
                             <FormControlLabel
                                 required
                                 control={<Checkbox color="primary" />}
-                                onChange={handleCheckbox}
                                 label={
                                     <a href="https://www.northpointbrewing.com" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline">
                                         I have read and I accept the event terms and conditions found here.
@@ -153,6 +175,8 @@ export default function UserCreateBooking() {
                     <button type="submit" className="w-full py-2 px-4 bg-emerald-600 text-white font-semibold rounded-md shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
                         Submit
                     </button>
+                    {errors && <div className="text-red-600">{errors}</div>}
+
                 </form>
             </div>
         </div>

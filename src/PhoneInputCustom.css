@@ -1,0 +1,25 @@
+/* Change the border color of the input field when focused */
+.react-international-phone-input:focus {
+    border-width: 2px;
+    border-color: rgb(0, 77, 200);
+    border-left-width: 3px;
+}
+
+/* Adjust the country selector button styling */
+.react-international-phone-country-selector-button {
+    height: 2.5rem;
+
+}
+
+.react-international-phone-country-selector-button:focus {
+    border-width: 2px;
+    border-color: rgb(0, 77, 200);
+}
+
+.react-international-phone-country-selector:focus-within {
+    border-width: 2px;
+    border-color: rgb(0, 77, 200);
+    border-right-width: 3px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
