@@ -169,7 +169,7 @@ export default function UserCreateBooking() {
                                 required
                                 control={<Checkbox color="primary" />}
                                 label={
-                                    <a href="https://www.northpointbrewing.com" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline">
+                                    <a href="https://www.northpointbrewing.com/event-terms" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline">
                                         I have read and I accept the event terms and conditions found here.
                                     </a>
                                 }
