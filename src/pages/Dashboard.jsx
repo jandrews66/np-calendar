@@ -24,7 +24,10 @@ export default function Dashboard() {
         <>
             <AdminNav />
             <FetchBookings setBookings={setBookings} setLoading={setLoading} />
+            {bookings.length > 0 && !loading ?
             <Calendar bookings={bookings} loading={loading} handleClick={handleClick} handleEdit={handleEdit} showNames={true} />
+                : <div className="text-center">Unable to fetch availability</div>
+            }
         </>
     );
 }

@@ -24,8 +24,10 @@ export default function UserCalendar() {
                 className="mx-auto p-4">
             </img>
             <div className="text-center text-sm p-2">To request a time slot outside of these hours please contact us at events@northpointbrewing.com </div>
-
-            <Calendar bookings={bookings} loading={loading} handleClick={handleClick} showNames={false} />
+            {bookings.length > 0 && !loading ?
+                <Calendar bookings={bookings} loading={loading} handleClick={handleClick} showNames={false} />
+                : <div className="text-center">Unable to fetch availability</div>
+            }
         </>
     );
 }

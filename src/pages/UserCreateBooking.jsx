@@ -28,7 +28,7 @@ export default function UserCreateBooking() {
     const [email, setEmail] = useState('');
     const [attendance, setAttendance] = useState('');
     const [reason, setReason] = useState('');
-    const [errors, setErrors] = useState('')
+    const [errors, setErrors] = useState([])
     const isValid = isPhoneValid(telephone);
 
 
@@ -37,9 +37,9 @@ export default function UserCreateBooking() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        
         if (!isValid){
-            setErrors("Please enter a valid telephone number and try again")
+            setErrors(["Please enter a valid telephone number and try again"])
             return
         }
         const formattedDate = format(new Date(date), 'yyyy-MM-dd');
@@ -71,7 +71,7 @@ export default function UserCreateBooking() {
                 navigate('/confirmation', { state: { booking: data } });
             } else {
                 console.log('Booking failed:', data);
-                setErrors(data.error)
+                setErrors([data.error]);
 
             }
         } catch (error) {
@@ -101,6 +101,7 @@ export default function UserCreateBooking() {
                             id="firstName"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                             onChange={(e) => setFirstName(e.target.value)}
+                            maxLength="20"
                             required
                         />
                     </div>
@@ -111,6 +112,7 @@ export default function UserCreateBooking() {
                             id="lastName"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                             onChange={(e) => setLastName(e.target.value)}
+                            maxLength="20"
                             required
                         />
                     </div>
@@ -133,6 +135,7 @@ export default function UserCreateBooking() {
                             id="email"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                             onChange={(e) => setEmail(e.target.value)}
+                            maxLength="30"
                             required
                         />
                     </div>
@@ -153,7 +156,8 @@ export default function UserCreateBooking() {
                         <input
                             type="text"
                             id="reason"
-                            minLength="8"
+                            minLength="3"
+                            maxLength="20"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                             onChange={(e) => setReason(e.target.value)}
                             required
@@ -175,8 +179,13 @@ export default function UserCreateBooking() {
                     <button type="submit" className="w-full py-2 px-4 bg-emerald-600 text-white font-semibold rounded-md shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
                         Submit
                     </button>
-                    {errors && <div className="text-red-600">{errors}</div>}
-
+                    {errors.length > 0 && (
+                        <div className="text-red-600 mt-4 space-y-2">
+                            {errors.map((error, index) => (
+                                <p key={index}>{error}</p>
+                            ))}
+                        </div>
+                    )}
                 </form>
             </div>
         </div>
