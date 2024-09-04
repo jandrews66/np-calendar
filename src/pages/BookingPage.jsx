@@ -44,6 +44,7 @@ export default function BookingPage() {
             setTelephone(data.telephone);
             setEmail(data.email);
             setAttendance(data.attendance);
+            setReason(data.reason);
             setBookingStatus(data.booking_status);
         })
         .catch((error) => console.error(error));
@@ -59,6 +60,7 @@ export default function BookingPage() {
             setTelephone(originalBooking.telephone);
             setEmail(originalBooking.email);
             setAttendance(originalBooking.attendance);
+            setReason(originalBooking.reason);
             setBookingStatus(originalBooking.booking_status);
         }
         setDisabled(!disabled);
@@ -243,6 +245,7 @@ export default function BookingPage() {
                         <input
                             type="text"
                             id="reason"
+                            value={reason} 
                             minLength="3"
                             maxLength="20"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
