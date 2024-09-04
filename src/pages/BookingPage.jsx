@@ -15,6 +15,7 @@ export default function BookingPage() {
     const [telephone, setTelephone] = useState('');
     const [email, setEmail] = useState('');
     const [attendance, setAttendance] = useState('');
+    const [reason, setReason] = useState('');
     const [bookingStatus, setBookingStatus] = useState('');
     const [disabled, setDisabled] = useState(true);
     const [error, setError] = useState(null)
@@ -73,7 +74,8 @@ export default function BookingPage() {
             lastName, 
             telephone, 
             email, 
-            attendance, 
+            attendance,
+            reason, 
             bookingStatus
         };
 
@@ -236,6 +238,20 @@ export default function BookingPage() {
                         disabled={disabled}
                     />
                 </div>
+                <div>
+                    <label htmlFor="reason" className="block text-sm font-medium text-gray-700">Reason for Event</label>
+                        <input
+                            type="text"
+                            id="reason"
+                            minLength="3"
+                            maxLength="20"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            onChange={(e) => setReason(e.target.value)}
+                            required
+                            disabled={disabled}
+
+                        />
+                    </div>
                 <div>
                     <label htmlFor="booking_status" className="block text-sm font-medium text-gray-700">Booking Status:</label>
                     <select

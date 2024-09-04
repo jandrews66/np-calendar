@@ -5,13 +5,15 @@ import AdminNav from '../components/AdminNav';
 
 export default function AdminCreateBooking(){
     const location = useLocation();
-    const { date, slot, status } = location.state || {};
+    const { date, slot } = location.state || {};
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [telephone, setTelephone] = useState('')
     const [email, setEmail] = useState('')
     const [attendance, setAttendance] = useState('')
+    const [reason, setReason] = useState('');
     const [bookingStatus, setBookingStatus] = useState('')
+    const [errors, setErrors] = useState([])
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -27,7 +29,8 @@ export default function AdminCreateBooking(){
             lastName, 
             telephone, 
             email, 
-            attendance, 
+            attendance,
+            reason, 
             status: bookingStatus 
         };
         console.log("form data" + formData.date)
@@ -52,7 +55,10 @@ export default function AdminCreateBooking(){
             navigate('/login', { state: { errorMsg: 'Session expired, please login' } });
             } else {
             console.log('booking failed', data);
-        }
+            // Extract the array of error messages
+            const extractedErrors = data.errors.map(error => `${error.message}`);
+            setErrors(extractedErrors);
+            }
     }
 
 
@@ -70,6 +76,7 @@ export default function AdminCreateBooking(){
                         id="firstName"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setFirstName(e.target.value)}
+                        maxLength="20"
                         required />
                 </div>
                 <div>
@@ -79,6 +86,7 @@ export default function AdminCreateBooking(){
                         id="lastName"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setLastName(e.target.value)}
+                        maxLength="20"
                         required />
                 </div>
                 <div>
@@ -88,6 +96,8 @@ export default function AdminCreateBooking(){
                         id="telephone"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setTelephone(e.target.value)}
+                            min="9"
+                            max="11"
                         required />
                 </div>
                 <div>
@@ -97,6 +107,7 @@ export default function AdminCreateBooking(){
                         id="email"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setEmail(e.target.value)}
+                        maxLength="30"
                         required />
                 </div>
                 <div>
@@ -111,6 +122,18 @@ export default function AdminCreateBooking(){
                         required />
                 </div>
                 <div>
+                        <label htmlFor="reason" className="block text-sm font-medium text-gray-700">Reason for Event</label>
+                        <input
+                            type="text"
+                            id="reason"
+                            minLength="3"
+                            maxLength="20"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            onChange={(e) => setReason(e.target.value)}
+                            required
+                        />
+                    </div>
+                <div>
                     <label htmlFor="booking_status" className="block text-sm font-medium text-gray-700">Booking Status:</label>
                     <select
                         id="booking_status"
@@ -124,6 +147,13 @@ export default function AdminCreateBooking(){
                     </select>
                 </div>
                 <button type="submit" className="w-full py-2 px-4 bg-emerald-600 text-white font-semibold rounded-md shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">Submit</button>
+                {errors.length > 0 && (
+                        <div className="text-red-600 mt-4 space-y-2">
+                            {errors.map((error, index) => (
+                                <p key={index}>{error}</p>
+                            ))}
+                        </div>
+                    )}
             </form>
         </div>
         </>
