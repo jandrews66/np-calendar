@@ -52,12 +52,11 @@ export default function UserCreateBooking() {
             telephone, 
             email, 
             attendance,
-            reason, 
-            status: "provisional"
+            reason
         };
 
         try {
-            const response = await fetch('https://np-calendar-api-production.up.railway.app/booking/create', {
+            const response = await fetch('https://np-calendar-api-production.up.railway.app/booking/user-create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

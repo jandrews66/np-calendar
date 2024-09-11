@@ -11,6 +11,7 @@ import SearchResults from './pages/SearchResults.jsx';
 import UserCreateBooking from './pages/UserCreateBooking.jsx'
 import AdminCreateBooking from './pages/AdminCreateBooking.jsx'
 import UserConfirmation from './pages/UserConfirmation.jsx';
+import AdminSettings from './pages/AdminSettings.jsx'
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/admin/search",
     element: <SearchResults />
+  },
+  {
+    path: "/admin/settings",
+    element: <AdminSettings />
   },
 ]);
 
