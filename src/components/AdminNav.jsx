@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export default function AdminNav() {
     const [query, setQuery] = useState('')
@@ -64,8 +65,11 @@ export default function AdminNav() {
                             Search
                         </button>
                     </form>
+                    <Link to="/admin/settings">
+                        <SettingsIcon sx={{ color: '#FFFFFF', cursor: 'pointer'}}/>
+                    </Link>
                     <button 
-                        className= "text-white px-2 rounded"
+                        className= "text-white pr-2 rounded"
                         onClick={handleLogout}
                     >
                         Logout
