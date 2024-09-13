@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { format } from "date-fns";
 import Checkbox from '@mui/material/Checkbox';
@@ -30,16 +30,18 @@ export default function UserCreateBooking() {
     const [reason, setReason] = useState('');
     const [errors, setErrors] = useState([])
     const isValid = isPhoneValid(telephone);
+    const phoneInputRef = useRef(null); // Create a ref for the PhoneInput
 
 
 
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        
+
+        e.preventDefault(); 
         if (!isValid){
             setErrors(["Please enter a valid telephone number and try again"])
+            phoneInputRef.current.focus(); // Focus on PhoneInput if validation fails
             return
         }
         const formattedDate = format(new Date(date), 'yyyy-MM-dd');
@@ -122,8 +124,9 @@ export default function UserCreateBooking() {
                             id="telephone"
                             value={telephone}
                             onChange={(telephone) => setTelephone(telephone)}
-                            inputClassName="w-full !h-10 !text-base"
-                            className="my-1"
+                            inputClassName="w-full !h-10 !text-base "
+                            className="my-1 "
+                            ref={phoneInputRef}
                             required
                         />
                     </div>
