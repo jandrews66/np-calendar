@@ -19,7 +19,7 @@
     "google-libphonenumber": "^3.2.38",
     "moment": "^2.30.1",
     "moment-timezone": "^0.5.45",
-    "mui-tel-input": "^5.1.2",
+    "mui-tel-input": "^6.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-international-phone": "^4.3.0",
