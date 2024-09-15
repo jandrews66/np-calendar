@@ -16,6 +16,7 @@ export default function BookingPage() {
     const [email, setEmail] = useState('');
     const [attendance, setAttendance] = useState('');
     const [reason, setReason] = useState('');
+    const [notes, setNotes] = useState('');
     const [bookingStatus, setBookingStatus] = useState('');
     const [disabled, setDisabled] = useState(true);
     const [error, setError] = useState(null)
@@ -45,6 +46,7 @@ export default function BookingPage() {
             setEmail(data.email);
             setAttendance(data.attendance);
             setReason(data.reason);
+            setNotes(data.notes);
             setBookingStatus(data.booking_status);
         })
         .catch((error) => console.error(error));
@@ -61,6 +63,7 @@ export default function BookingPage() {
             setEmail(originalBooking.email);
             setAttendance(originalBooking.attendance);
             setReason(originalBooking.reason);
+            setNotes(originalBooking.notes);
             setBookingStatus(originalBooking.booking_status);
         }
         setDisabled(!disabled);
@@ -77,7 +80,8 @@ export default function BookingPage() {
             telephone, 
             email, 
             attendance,
-            reason, 
+            reason,
+            notes, 
             bookingStatus
         };
 
@@ -254,7 +258,20 @@ export default function BookingPage() {
                             disabled={disabled}
 
                         />
-                    </div>
+                </div>
+                <div>
+                    <label htmlFor="notes" className="block text-sm font-medium text-gray-700">Notes</label>
+                        <input
+                            type="notes"
+                            id="notes"
+                            value={notes} 
+                            maxLength="50"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            onChange={(e) => setNotes(e.target.value)}
+                            disabled={disabled}
+
+                        />
+                </div>
                 <div>
                     <label htmlFor="booking_status" className="block text-sm font-medium text-gray-700">Booking Status:</label>
                     <select

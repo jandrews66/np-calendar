@@ -12,6 +12,8 @@ export default function AdminCreateBooking(){
     const [email, setEmail] = useState('')
     const [attendance, setAttendance] = useState('')
     const [reason, setReason] = useState('');
+    const [notes, setNotes] = useState('');
+
     const [bookingStatus, setBookingStatus] = useState('')
     const [errors, setErrors] = useState([])
     const navigate = useNavigate();
@@ -30,7 +32,8 @@ export default function AdminCreateBooking(){
             telephone, 
             email, 
             attendance,
-            reason, 
+            reason,
+            notes, 
             status: bookingStatus 
         };
         console.log("form data" + formData.date)
@@ -122,17 +125,27 @@ export default function AdminCreateBooking(){
                         required />
                 </div>
                 <div>
-                        <label htmlFor="reason" className="block text-sm font-medium text-gray-700">Reason for Event</label>
-                        <input
-                            type="text"
-                            id="reason"
-                            minLength="3"
-                            maxLength="20"
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
-                            onChange={(e) => setReason(e.target.value)}
-                            required
-                        />
-                    </div>
+                    <label htmlFor="reason" className="block text-sm font-medium text-gray-700">Reason for Event</label>
+                    <input
+                        type="text"
+                        id="reason"
+                        minLength="3"
+                        maxLength="20"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        onChange={(e) => setReason(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="notes" className="block text-sm font-medium text-gray-700">Notes</label>
+                    <input
+                        type="text"
+                        id="notes"
+                        maxLength="50"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        onChange={(e) => setNotes(e.target.value)}
+                    />
+                 </div>
                 <div>
                     <label htmlFor="booking_status" className="block text-sm font-medium text-gray-700">Booking Status:</label>
                     <select
