@@ -18,12 +18,6 @@ export default function UserCalendar() {
     return (
         <>
             <FetchBookings setBookings={setBookings} setLoading={setLoading} />
-            <img src="https://e65fa1923424da4ae037.cdn6.editmysite.com/uploads/b/e65fa1923424da4ae03716979c9b8e45ca9d11b00591046b78f81ff742dc7e1c/NPstack_1640802669.png" 
-                alt="North Point Brewing Logo" 
-                width="200"
-                className="mx-auto p-4">
-            </img>
-            <div className="text-center text-sm p-2">To request a time slot outside of these hours please contact us at events@northpointbrewing.com </div>
             {bookings.length > 0 && !loading ?
                 <Calendar bookings={bookings} loading={loading} handleClick={handleClick} showNames={false} />
                 : <div className="text-center">Unable to fetch availability</div>
