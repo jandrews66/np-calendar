@@ -13,8 +13,7 @@ export default function AdminCreateBooking(){
     const [attendance, setAttendance] = useState('')
     const [reason, setReason] = useState('');
     const [notes, setNotes] = useState('');
-
-    const [bookingStatus, setBookingStatus] = useState('')
+    const [bookingStatus, setBookingStatus] = useState('provisional')
     const [errors, setErrors] = useState([])
     const navigate = useNavigate();
 
