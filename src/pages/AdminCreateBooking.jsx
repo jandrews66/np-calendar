@@ -34,9 +34,7 @@ export default function AdminCreateBooking(){
             reason,
             notes, 
             status: bookingStatus 
-        };
-        console.log("form data" + formData.date)
-        
+        };        
         const token = localStorage.getItem('token')
 
         const response = await fetch('https://np-calendar-api-production.up.railway.app/booking/admin-create', {
@@ -50,11 +48,12 @@ export default function AdminCreateBooking(){
 
         const data = await response.json();
         if (response.ok) {
-            console.log('booking created', data);
-                navigate('/admin/dashboard')
+            navigate('/admin/dashboard')
+
             } else if (response.status === 401) {
             localStorage.removeItem('token');
             navigate('/login', { state: { errorMsg: 'Session expired, please login' } });
+            
             } else {
             console.log('booking failed', data);
             // Extract the array of error messages

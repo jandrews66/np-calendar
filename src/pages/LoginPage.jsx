@@ -33,7 +33,6 @@ export default function LoginPage(){
 
         if (response.ok) {
             // Handle successful login
-            console.log('Login successful', data);
             localStorage.setItem('token', data.token)
             localStorage.setItem('userId', data.user._id)
             setLoading(false)
@@ -41,7 +40,6 @@ export default function LoginPage(){
     
             } else {
             // Handle login error
-            console.log('Login failed', data);
             setErrors([{msg: data.message}] || [{ msg: 'An error occurred' }])
             setLoading(false)
             }

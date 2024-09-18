@@ -9,10 +9,9 @@ export default function FetchBookings({setBookings, setLoading}) {
             .then((data) => {
                 setBookings(data);
                 setLoading(false);
-                console.log(data)
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
                 setLoading(false);
             });
     }, [setBookings, setLoading]);
