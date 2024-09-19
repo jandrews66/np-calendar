@@ -17,7 +17,7 @@ export default function UserCalendar() {
             <FetchBookings setBookings={setBookings} setLoading={setLoading} />
             {bookings.length > 0 && !loading ?
                 <Calendar bookings={bookings} loading={loading} handleClick={handleClick} showNames={false} />
-                : <div className="text-center">Unable to fetch availability</div>
+                : <div className="text-center">Fetching availability...</div>
             }
         </>
     );

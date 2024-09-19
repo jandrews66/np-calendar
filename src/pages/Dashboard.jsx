@@ -55,7 +55,7 @@ export default function Dashboard() {
                 : <div></div>}
             {bookings.length > 0 && !loading ?
             <Calendar bookings={bookings} loading={loading} handleClick={handleClick} handleEdit={handleEdit} showNames={true} />
-                : <div className="text-center">Unable to fetch availability</div>
+                : <div className="text-center">Fetching availability...</div>
             }
         </>
     );

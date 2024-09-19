@@ -8,6 +8,7 @@ import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
 import '../PhoneInputCustom.css';
 import { PhoneNumberUtil } from 'google-libphonenumber';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const phoneUtil = PhoneNumberUtil.getInstance();
 
@@ -80,12 +81,25 @@ export default function UserCreateBooking() {
         }
     };
 
+    function navigateBack(){
+        navigate(-1)
+    }
+
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 sm:px-6 lg:px-8">
+            <div className="w-full max-w-md flex justify-start">
+                <button 
+                    className="bg-white font-medium text-gray-700 shadow-sm rounded-md text-sm px-2 mb-4 py-1 hover:bg-emerald-600 hover:text-white hover:shadow-md"
+                    onClick={navigateBack}
+                >
+                    <ArrowBackIcon />
+                </button>
+            </div>
             <div className="text-center mb-6">
                 <h2 className="text-3xl font-extrabold text-gray-900">Submit Your Booking Request</h2>
                 <p className="mt-2 text-lg text-gray-600">Please fill in the details below</p>
             </div>
+
             <div className="w-full max-w-md bg-white px-8 py-6 shadow-lg rounded-lg">
                 <div className="text-center bg-emerald-600 py-2">
                 <p className="text-white font-light">Date: <span className="font-medium">{date ? format(date, 'dd MMMM yyyy') : 'No date selected'} </span></p>
@@ -100,7 +114,7 @@ export default function UserCreateBooking() {
                         <input
                             type="text"
                             id="firstName"
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             onChange={(e) => setFirstName(e.target.value)}
                             maxLength="20"
                             required
