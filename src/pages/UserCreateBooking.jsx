@@ -82,7 +82,7 @@ export default function UserCreateBooking() {
     };
 
     function navigateBack(){
-        navigate(-1)
+        window.history.back();
     }
 
     return (
@@ -125,7 +125,7 @@ export default function UserCreateBooking() {
                         <input
                             type="text"
                             id="lastName"
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             onChange={(e) => setLastName(e.target.value)}
                             maxLength="20"
                             required
@@ -149,7 +149,7 @@ export default function UserCreateBooking() {
                         <input
                             type="email"
                             id="email"
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             onChange={(e) => setEmail(e.target.value)}
                             maxLength="30"
                             required
@@ -162,7 +162,7 @@ export default function UserCreateBooking() {
                             id="attendance"
                             min="10"
                             max="60"
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             onChange={(e) => setAttendance(e.target.value)}
                             required
                         />
@@ -174,7 +174,7 @@ export default function UserCreateBooking() {
                             id="reason"
                             minLength="3"
                             maxLength="20"
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             onChange={(e) => setReason(e.target.value)}
                             required
                         />
