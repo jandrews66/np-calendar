@@ -77,7 +77,7 @@ export default function AdminCreateBooking(){
                         id="firstName"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setFirstName(e.target.value)}
-                        maxLength="20"
+                        maxLength="30"
                         required />
                 </div>
                 <div>
@@ -87,7 +87,7 @@ export default function AdminCreateBooking(){
                         id="lastName"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setLastName(e.target.value)}
-                        maxLength="20"
+                        maxLength="30"
                         required />
                 </div>
                 <div>
@@ -106,7 +106,7 @@ export default function AdminCreateBooking(){
                         id="email"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setEmail(e.target.value)}
-                        maxLength="30"
+                        maxLength="50"
                         required />
                 </div>
                 <div>

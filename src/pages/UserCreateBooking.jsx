@@ -116,7 +116,7 @@ export default function UserCreateBooking() {
                             id="firstName"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             onChange={(e) => setFirstName(e.target.value)}
-                            maxLength="20"
+                            maxLength="30"
                             required
                         />
                     </div>
@@ -127,7 +127,7 @@ export default function UserCreateBooking() {
                             id="lastName"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             onChange={(e) => setLastName(e.target.value)}
-                            maxLength="20"
+                            maxLength="30"
                             required
                         />
                     </div>
@@ -151,7 +151,7 @@ export default function UserCreateBooking() {
                             id="email"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             onChange={(e) => setEmail(e.target.value)}
-                            maxLength="30"
+                            maxLength="50"
                             required
                         />
                     </div>
@@ -173,7 +173,7 @@ export default function UserCreateBooking() {
                             type="text"
                             id="reason"
                             minLength="3"
-                            maxLength="20"
+                            maxLength="50"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             onChange={(e) => setReason(e.target.value)}
                             required
