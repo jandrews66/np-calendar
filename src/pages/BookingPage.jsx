@@ -213,7 +213,6 @@ export default function BookingPage() {
                         value={telephone}
                         className="mt-1 block w-full px-3 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setTelephone(e.target.value)}
-                        required
                         disabled={disabled}
                     />
                 </div>
@@ -253,7 +252,6 @@ export default function BookingPage() {
                             maxLength="20"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                             onChange={(e) => setReason(e.target.value)}
-                            required
                             disabled={disabled}
 
                         />
