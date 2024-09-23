@@ -97,9 +97,7 @@ export default function AdminCreateBooking(){
                         id="telephone"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setTelephone(e.target.value)}
-                            min="9"
-                            max="11"
-                        required />
+                        />
                 </div>
                 <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email:</label>
@@ -127,11 +125,10 @@ export default function AdminCreateBooking(){
                     <input
                         type="text"
                         id="reason"
-                        minLength="3"
-                        maxLength="20"
+                        maxLength="50"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setReason(e.target.value)}
-                        required
+                        
                     />
                 </div>
                 <div>
@@ -139,7 +136,7 @@ export default function AdminCreateBooking(){
                     <input
                         type="text"
                         id="notes"
-                        maxLength="50"
+                        maxLength="100"
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
                         onChange={(e) => setNotes(e.target.value)}
                     />
