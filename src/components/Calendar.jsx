@@ -34,9 +34,9 @@ export default function Calendar({ bookings, loading, handleClick, handleEdit, s
         setDate(startOfDay(new Date(e.target.value)));
     };
 
-    const next6Months = eachMonthOfInterval({
+    const next11Months = eachMonthOfInterval({
         start: new Date(),  
-        end: addMonths(new Date(), 6),
+        end: addMonths(new Date(), 11),
     });
 
     return (
@@ -47,7 +47,7 @@ export default function Calendar({ bookings, loading, handleClick, handleEdit, s
             <>
                 <div className="text-center mb-6">
                     <select value={date.toISOString()} onChange={handleChange}>
-                        {next6Months.map((month, index) => (
+                        {next11Months.map((month, index) => (
                         <option key={index} value={month.toISOString()}>{format(month, 'MMMM yyyy')}</option>
                                 ))}
                     </select>
