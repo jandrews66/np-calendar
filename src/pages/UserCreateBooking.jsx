@@ -34,7 +34,6 @@ export default function UserCreateBooking() {
     const phoneInputRef = useRef(null); // Create a ref for the PhoneInput
 
 
-
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
