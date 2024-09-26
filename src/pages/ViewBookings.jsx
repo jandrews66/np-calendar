@@ -26,7 +26,7 @@ export default function ViewBookings() {
                 localStorage.removeItem('token')
                 navigate('/login')
             }
-            const response = await fetch(`https://np-calendar-api-production.up.railway.app/booking/handle/${bookingId}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/booking/handle/${bookingId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,

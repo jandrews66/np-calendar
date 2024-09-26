@@ -9,7 +9,7 @@ export default function AdminSettings(){
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('https://np-calendar-api-production.up.railway.app/staff')
+        fetch(`${import.meta.env.VITE_API_URL}/staff`)
             .then((response) => response.json())
             .then((data) => {
                 setAllEmails(data);
@@ -23,7 +23,7 @@ export default function AdminSettings(){
         e.preventDefault();
         const token = localStorage.getItem('token')
 
-        const response = await fetch('https://np-calendar-api-production.up.railway.app/staff/create', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/staff/create`, {
             method: 'POST',
             headers: { 
                 'Authorization': `Bearer ${token}`,
@@ -49,7 +49,7 @@ export default function AdminSettings(){
         console.log(id)
         const token = localStorage.getItem('token')
 
-        const response = await fetch(`https://np-calendar-api-production.up.railway.app/staff/delete/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/staff/delete/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,

@@ -21,7 +21,7 @@ export default function LoginPage(){
         setLoading(true)
         const loginData = { username, password }
 
-        const response = await fetch ('https://np-calendar-api-production.up.railway.app/users/login', {
+        const response = await fetch (`${import.meta.env.VITE_API_URL}/users/login`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'

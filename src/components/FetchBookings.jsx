@@ -4,7 +4,7 @@ export default function FetchBookings({setBookings, setLoading}) {
 
 
     useEffect(() => {
-        fetch('https://np-calendar-api-production.up.railway.app/bookings')
+        fetch(`${import.meta.env.VITE_API_URL}/bookings`)
             .then((response) => response.json())
             .then((data) => {
                 setBookings(data);

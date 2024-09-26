@@ -58,7 +58,7 @@ export default function UserCreateBooking() {
         };
 
         try {
-            const response = await fetch('https://np-calendar-api-production.up.railway.app/booking/user-create', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/booking/user-create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -67,12 +67,13 @@ export default function UserCreateBooking() {
             });
 
             const data = await response.json();
+            console.log('Response data:', data);
 
             if (response.ok) {
                 navigate('/confirmation', { state: { booking: data } });
             } else {
                 console.log('Booking failed:', data);
-                setErrors([data.error]);
+                setErrors(data.error ? [data.error] : ["An unexpected error occurred."]); // Improved error handling
 
             }
         } catch (error) {

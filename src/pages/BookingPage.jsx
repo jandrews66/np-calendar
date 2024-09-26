@@ -30,7 +30,7 @@ export default function BookingPage() {
     }
 
     useEffect(() => {
-        fetch(`https://np-calendar-api-production.up.railway.app/booking/${bookingId}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/booking/${bookingId}`, {
             mode: 'cors',
             dataType: 'json',
         })
@@ -92,7 +92,7 @@ export default function BookingPage() {
                 localStorage.removeItem('token')
                 navigate('/login')
             }
-            const response = await fetch(`https://np-calendar-api-production.up.railway.app/booking/${bookingId}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/booking/${bookingId}`, {
                 method: 'PUT',
                 headers: { 
                     'Authorization': `Bearer ${token}`,
@@ -127,7 +127,7 @@ export default function BookingPage() {
                 navigate('/login');
                 return;
             }
-            const response = await fetch(`https://np-calendar-api-production.up.railway.app/booking/${bookingId}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/booking/${bookingId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,
