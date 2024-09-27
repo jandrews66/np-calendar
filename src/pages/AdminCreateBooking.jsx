@@ -13,6 +13,8 @@ export default function AdminCreateBooking(){
     const [attendance, setAttendance] = useState('')
     const [reason, setReason] = useState('');
     const [notes, setNotes] = useState('');
+    const [minSpend, setMinSpend] = useState('');
+    const [rentalFee, setRentalFee] = useState('');
     const [bookingStatus, setBookingStatus] = useState('provisional')
     const [errors, setErrors] = useState([])
     const navigate = useNavigate();
@@ -32,7 +34,9 @@ export default function AdminCreateBooking(){
             email, 
             attendance,
             reason,
-            notes, 
+            notes,
+            minSpend,
+            rentalFee, 
             status: bookingStatus 
         };        
         const token = localStorage.getItem('token')
@@ -141,6 +145,24 @@ export default function AdminCreateBooking(){
                         onChange={(e) => setNotes(e.target.value)}
                     />
                  </div>
+                 <div>
+                    <label htmlFor="minSpend" className="block text-sm font-medium text-gray-700">Minimum Spend:</label>
+                    <input
+                        type="number"
+                        id="minSpend"
+                        className="mt-1 block w-full px-3 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        onChange={(e) => setMinSpend(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="rentalFee" className="block text-sm font-medium text-gray-700">Rental Fee:</label>
+                    <input
+                        type="number"
+                        id="rentalFee"
+                        className="mt-1 block w-full px-3 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        onChange={(e) => setRentalFee(e.target.value)}
+                    />
+                </div>
                 <div>
                     <label htmlFor="booking_status" className="block text-sm font-medium text-gray-700">Booking Status:</label>
                     <select

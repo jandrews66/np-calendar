@@ -18,6 +18,8 @@ export default function BookingPage() {
     const [reason, setReason] = useState('');
     const [notes, setNotes] = useState('');
     const [bookingStatus, setBookingStatus] = useState('');
+    const [minSpend, setMinSpend] = useState('');
+    const [rentalFee, setRentalFee] = useState('');
     const [disabled, setDisabled] = useState(true);
     const [error, setError] = useState(null)
     const navigate = useNavigate();
@@ -47,6 +49,8 @@ export default function BookingPage() {
             setAttendance(data.attendance);
             setReason(data.reason);
             setNotes(data.notes);
+            setMinSpend(data.min_spend)
+            setRentalFee(data.rental_fee)
             setBookingStatus(data.booking_status);
         })
         .catch((error) => console.error(error));
@@ -64,6 +68,8 @@ export default function BookingPage() {
             setAttendance(originalBooking.attendance);
             setReason(originalBooking.reason);
             setNotes(originalBooking.notes);
+            setMinSpend(originalBooking.min_spend)
+            setRentalFee(originalBooking.rental_fee)
             setBookingStatus(originalBooking.booking_status);
         }
         setDisabled(!disabled);
@@ -259,7 +265,7 @@ export default function BookingPage() {
                 <div>
                     <label htmlFor="notes" className="block text-sm font-medium text-gray-700">Notes</label>
                         <input
-                            type="notes"
+                            type="text"
                             id="notes"
                             value={notes} 
                             maxLength="50"
@@ -268,6 +274,28 @@ export default function BookingPage() {
                             disabled={disabled}
 
                         />
+                </div>
+                <div>
+                    <label htmlFor="minSpend" className="block text-sm font-medium text-gray-700">Minimum Spend:</label>
+                    <input
+                        type="number"
+                        id="minSpend"
+                        value={minSpend}
+                        className="mt-1 block w-full px-3 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        onChange={(e) => setMinSpend(e.target.value)}
+                        disabled={disabled}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="rentalFee" className="block text-sm font-medium text-gray-700">Rental Fee:</label>
+                    <input
+                        type="number"
+                        id="rentalFee"
+                        value={rentalFee}
+                        className="mt-1 block w-full px-3 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        onChange={(e) => setRentalFee(e.target.value)}
+                        disabled={disabled}
+                    />
                 </div>
                 <div>
                     <label htmlFor="booking_status" className="block text-sm font-medium text-gray-700">Booking Status:</label>

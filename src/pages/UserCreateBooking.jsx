@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { format } from "date-fns";
 import Checkbox from '@mui/material/Checkbox';
@@ -29,7 +29,10 @@ export default function UserCreateBooking() {
     const [email, setEmail] = useState('');
     const [attendance, setAttendance] = useState('');
     const [reason, setReason] = useState('');
-    const [errors, setErrors] = useState([])
+    const [errors, setErrors] = useState([]);
+    const [minSpend, setMinSpend] = useState('');
+    const [rentalFee, setRentalFee] = useState('');
+
     const isValid = isPhoneValid(telephone);
     const phoneInputRef = useRef(null); // Create a ref for the PhoneInput
 
@@ -54,10 +57,13 @@ export default function UserCreateBooking() {
             telephone, 
             email, 
             attendance,
-            reason
+            reason,
+            minSpend,
+            rentalFee
         };
 
         try {
+            console.log(formData)
             const response = await fetch(`${import.meta.env.VITE_API_URL}/booking/user-create`, {
                 method: 'POST',
                 headers: {
@@ -85,6 +91,23 @@ export default function UserCreateBooking() {
         window.history.back();
     }
 
+    function calculateFees(){
+        // Thur-Sun evening slots in December have a $2000 min spend
+        if (slot === 'B' && date.getMonth() === 11 && (date.getDay() > 3 || date.getDay() === 0)){
+            setMinSpend('2000')
+            setRentalFee('750')
+        } else if (slot === 'B'){
+            setMinSpend('1500')
+            setRentalFee('500')
+        } else {
+            setMinSpend('1000')
+            setRentalFee('500')
+        }     
+    }
+
+    useEffect(()=> {
+        calculateFees();
+    })
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 sm:px-6 lg:px-8">
             <div className="w-full max-w-md flex justify-start">
@@ -104,7 +127,9 @@ export default function UserCreateBooking() {
                 <div className="text-center bg-emerald-600 py-2">
                 <p className="text-white font-light">Date: <span className="font-medium">{date ? format(date, 'dd MMMM yyyy') : 'No date selected'} </span></p>
                 <p className="text-white font-light">Time slot: <span className="font-medium">{slot === 'A' ? '2-6pm' : '7-11pm'}</span></p>
-                <p className="text-white font-light">Minimum spend: <span className="font-medium">{slot === 'A' ? '$1000' : '$1500'}</span></p>
+                <p className="text-white font-light">Minimum spend: <span className="font-medium">${minSpend}</span></p>
+                <p className="text-white font-light">Rental fee: <span className="font-medium">${rentalFee}</span></p>
+
                 </div>
                 <hr className="my-4"></hr>
 
