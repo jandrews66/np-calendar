@@ -88,6 +88,8 @@ export default function BookingPage() {
             attendance,
             reason,
             notes, 
+            minSpend,
+            rentalFee,
             bookingStatus
         };
 
