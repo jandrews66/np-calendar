@@ -92,10 +92,10 @@ export default function UserCreateBooking() {
     }
 
     function calculateFees(){
-        // Thur-Sun evening slots in December have a $2000 min spend
+        // Thur-Sun evening slots in December have a $1750 min spend
         if (slot === 'B' && date.getMonth() === 11 && (date.getDay() > 3 || date.getDay() === 0)){
-            setMinSpend('2000')
-            setRentalFee('750')
+            setMinSpend('1750')
+            setRentalFee('500')
         } else if (slot === 'B'){
             setMinSpend('1500')
             setRentalFee('500')
