@@ -40,13 +40,13 @@ export default function Calendar({ bookings, loading, handleClick, handleEdit, s
     });
 
     return (
-        <div className="container mx-auto p-8 min-w-[350px] max-w-[860px]">
+        <div className="container mx-auto p-4 min-w-[350px] max-w-[860px]">
             {loading ? (
                 <div className="text-center">Loading...</div>
             ) : (
             <>
                 <div className="text-center mb-6">
-                    <select value={date.toISOString()} onChange={handleChange}>
+                    <select value={date.toISOString()} onChange={handleChange} className="bg-gray-100 py-1 px-2 rounded-md cursor-pointer">
                         {next11Months.map((month, index) => (
                         <option key={index} value={month.toISOString()}>{format(month, 'MMMM yyyy')}</option>
                                 ))}
@@ -64,8 +64,8 @@ export default function Calendar({ bookings, loading, handleClick, handleEdit, s
                                     <div className="bg-slate-100 p-0.5">{format(dayObj.date, "d")}</div>
                                     <div>
                                         {dayObj.slotA ? (
-                                            <div className={`border-t text-sm p-2 h-10 ${dayObj.slotA.booking_status === "provisional" && showNames ?  'bg-yellow-200' : 'bg-red-100' }`}>
-                                                {showNames ? <button onClick={() => handleEdit(dayObj.slotA)}>{dayObj.slotA.last_name}</button> : <p>-</p>}
+                                            <div className={`border-t text-xs sm:text-sm p-1 sm:p-2 h-10 ${dayObj.slotA.booking_status === "provisional" && showNames ?  'bg-yellow-200' : 'bg-red-100' }`}>
+                                                {showNames ? <button onClick={() => handleEdit(dayObj.slotA)}>{dayObj.slotA.last_name.substring(0, 8)}</button> : <p>-</p>}
                                             </div>    
                                         ) : (
                                             isAfter(dayObj.date, currentDate) ? (
@@ -77,8 +77,8 @@ export default function Calendar({ bookings, loading, handleClick, handleEdit, s
                                     </div>
                                     <div>
                                         {dayObj.slotB ? (
-                                            <div className={`border-t text-sm p-2 h-10 ${dayObj.slotB.booking_status === "provisional" && showNames ?  'bg-yellow-200' : 'bg-red-100' }`}>
-                                                {showNames ? <button onClick={() => handleEdit(dayObj.slotB)}>{dayObj.slotB.last_name}</button> : <p>-</p>}
+                                            <div className={`border-t text-xs sm:text-sm p-1 sm:p-2 h-10 ${dayObj.slotB.booking_status === "provisional" && showNames ?  'bg-yellow-200' : 'bg-red-100' }`}>
+                                                {showNames ? <button onClick={() => handleEdit(dayObj.slotB)}>{dayObj.slotB.last_name.substring(0, 8)}</button> : <p>-</p>}
                                             </div>
                                         ) : (
                                             isAfter(dayObj.date, currentDate) ? (

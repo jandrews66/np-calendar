@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function AdminNav() {
     const [query, setQuery] = useState('')
@@ -42,14 +44,14 @@ export default function AdminNav() {
         navigate('/login')
     }
     return (
-        <nav className="bg-gray-800 p-4">
-            <div className="flex justify-between">
-                <div className="flex items-center gap-6">
-                    <Link to="/admin/dashboard" className="text-white">Dashboard</Link>
-                    <Link to="/admin/bookings" className="text-white">Booking Requests</Link>
+        <nav className="bg-gray-800 p-2 sm:p-4">
+            <div className="flex gap-2 justify-between">
+                <div className="flex items-center gap-2 sm:gap-6">
+                    <Link to="/admin/dashboard" className="text-white text-sm sm:text-base">Dashboard</Link>
+                    <Link to="/admin/bookings" className="text-white text-sm sm:text-base">Requests</Link>
 
                 </div>
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-2 sm:gap-5">
                     <form className="flex"onSubmit={handleSubmit}>
                         <input
                             type="text"
@@ -59,10 +61,11 @@ export default function AdminNav() {
                         >
                         </input>
                         <button 
-                            className="bg-indigo-700 text-white py-1 px-4 rounded-r-md"
+                            className="bg-indigo-700 text-white py-1 px-2 rounded-r-md"
                             type="submit"
                         >
-                            Search
+                            <SearchIcon sx={{ color: '#FFFFFF', cursor: 'pointer'}}/>
+
                         </button>
                     </form>
                     <Link to="/admin/settings">
@@ -72,7 +75,8 @@ export default function AdminNav() {
                         className= "text-white pr-2 rounded"
                         onClick={handleLogout}
                     >
-                        Logout
+                        <LogoutIcon sx={{ color: '#FFFFFF', cursor: 'pointer'}}/>
+
                     </button>
                 </div>
             </div>

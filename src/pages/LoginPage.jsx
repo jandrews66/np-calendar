@@ -47,7 +47,7 @@ export default function LoginPage(){
     
     return (
         <div className="flex justify-center items-center h-screen bg-gray-100">
-        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-1/4 flex flex-col">
+        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-5/6 sm:w-1/4 flex flex-col">
             <div className="mb-4">
                 <label htmlFor="username" className="block text-gray-700 mb-2" >Username:</label>
                 <input
