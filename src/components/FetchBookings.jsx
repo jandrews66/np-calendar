@@ -7,11 +7,13 @@ export default function FetchBookings({setBookings, setLoading}) {
         fetch(`${import.meta.env.VITE_API_URL}/bookings`)
             .then((response) => response.json())
             .then((data) => {
+                console.log(data)
                 setBookings(data);
                 setLoading(false);
             })
             .catch((error) => {
                 console.error(error);
+                console.log(error)
                 setLoading(false);
             });
     }, [setBookings, setLoading]);
